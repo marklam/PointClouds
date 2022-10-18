@@ -24,7 +24,7 @@ namespace PointCloudScanner
             }
             catch(Exception err)
             {
-                System.Windows.MessageBox.Show("Error running app : " + err.Message);
+                MessageBox.Show("Error running app : " + err.Message);
             }
         }
     }

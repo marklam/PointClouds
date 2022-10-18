@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
-using System.Windows.Media;
 using System.Diagnostics;
 using OpenTK;
 using OpenTKExtension;

@@ -9,13 +9,12 @@ using OpenTK;
 using System.Globalization;
 using System.IO;
 using OpenTK.Mathematics;
-using System.Windows.Media;
 
 namespace OpenTKExtension
 {
     public class UtilsPointCloudIO
     {
-        public static int BYTES_PER_PIXEL = (PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
+        public static int BYTES_PER_PIXEL = 4; //(PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
         public static System.Globalization.CultureInfo CultureInfo = new System.Globalization.CultureInfo("en-US");
 
         /// <summary>

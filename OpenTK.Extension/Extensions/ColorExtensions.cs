@@ -109,7 +109,7 @@ namespace OpenTKExtension
         public static List<float[]> ToColorInfo(byte[] arrayColor, ushort[] arrayDepth, int width, int height)
         {
 
-            int BYTES_PER_PIXEL = (System.Windows.Media.PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
+            int BYTES_PER_PIXEL = 4;//(System.Windows.Media.PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
 
             List<float[]> listOfColors = new List<float[]>();
             for (int x = 0; x < width; ++x)
@@ -138,7 +138,7 @@ namespace OpenTKExtension
         public static List<System.Drawing.Color> ToColorList(int numberOfItems, byte r, byte g, byte b, byte a)
         {
 
-            int BYTES_PER_PIXEL = (System.Windows.Media.PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
+            int BYTES_PER_PIXEL = 4; // (System.Windows.Media.PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
 
             List<System.Drawing.Color> listOfColors = new List<System.Drawing.Color>();
             System.Drawing.Color color = System.Drawing.Color.FromArgb(a, r, g, b);
@@ -154,7 +154,7 @@ namespace OpenTKExtension
         public static Vector3[] ToVector3Array(int numberOfItems, byte r, byte g, byte b)
         {
 
-            int BYTES_PER_PIXEL = (System.Windows.Media.PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
+            int BYTES_PER_PIXEL = 4; // (System.Windows.Media.PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
 
             Vector3[] listOfColors = new Vector3[numberOfItems];
 
