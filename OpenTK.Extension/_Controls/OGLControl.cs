@@ -12,7 +12,7 @@ using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
-    public class OGLControl : OpenTK.GLControl
+    public class OGLControl : OpenTK.WinForms.GLControl
     {
         public OpenGLContext GLrender;
         public ModelViewMode ModelViewMode = ModelViewMode.ReadOnly;

@@ -448,7 +448,6 @@ namespace OpenTKExtension
             this.glControl1.Name = "glControl1";
             this.glControl1.Size = new System.Drawing.Size(1233, 533);
             this.glControl1.TabIndex = 12;
-            this.glControl1.VSync = false;
             // 
             // OpenGLUC
             // 

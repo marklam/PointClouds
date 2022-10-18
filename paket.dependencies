@@ -11,5 +11,5 @@ nuget Newtonsoft.Json
 nuget NUnit
 nuget NUnit3TestAdapter
 nuget OpenTK
-nuget OpenTK.GLControl
+nuget OpenTK.WinForms
 nuget System.Resources.Extensions
