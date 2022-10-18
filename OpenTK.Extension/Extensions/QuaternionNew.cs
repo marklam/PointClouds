@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -394,7 +395,7 @@ namespace OpenTKExtension
             }
             else
             {
-                // This occurs when the angle is zero. 
+                // This occurs when the angle is zero.
                 // Not a problem: just set an arbitrary normalized axis.
                 result.Xyz = Vector3.UnitX;
             }

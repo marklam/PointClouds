@@ -12,6 +12,7 @@ using System.IO;
 using System.Reflection;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 
 namespace OpenTKExtension

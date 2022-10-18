@@ -11,7 +11,7 @@ using Microsoft.Kinect;
 using System.Windows;
 using OpenTKExtension;
 using OpenTK;
-
+using OpenTK.Mathematics;
 
 namespace PointCloudUtils
 {
@@ -41,7 +41,7 @@ namespace PointCloudUtils
             }
 
         }
-        public DepthMetaData(List<OpenTK.Vector3> vectors, bool createBitmap)
+        public DepthMetaData(List<OpenTK.Mathematics.Vector3> vectors, bool createBitmap)
         {
 
             this.FrameData = FromVector3List(vectors);
@@ -66,12 +66,12 @@ namespace PointCloudUtils
 
         }
       
-        public static ushort[] FromVector3List(List<OpenTK.Vector3> vectors)
+        public static ushort[] FromVector3List(List<OpenTK.Mathematics.Vector3> vectors)
         {
             ushort[] newData = new ushort[XDepthMaxKinect * YDepthMaxKinect];
             for (int i = 0; i < vectors.Count; i++)
             {
-                OpenTK.Vector3 p3D = vectors[i];
+                OpenTK.Mathematics.Vector3 p3D = vectors[i];
                 ushort x = Convert.ToUInt16(p3D.X);
                 ushort y = Convert.ToUInt16(p3D.Y);
                 ushort z = Convert.ToUInt16(p3D.Z);
@@ -87,12 +87,12 @@ namespace PointCloudUtils
 
 
         }
-        //public static ushort[] FromVector3List(List<OpenTK.Vector3> vectors)
+        //public static ushort[] FromVector3List(List<OpenTK.Mathematics.Vector3> vectors)
         //{
         //    ushort[] newData = new ushort[XDepthMaxKinect * YDepthMaxKinect];
         //    for (int i = 0; i < vectors.Count; i++)
         //    {
-        //        OpenTK.Vector3 p3D = vectors[i];
+        //        OpenTK.Mathematics.Vector3 p3D = vectors[i];
         //        ushort x = Convert.ToUInt32(p3D.X);
         //        ushort y = Convert.ToUInt32(p3D.Y);
         //        ushort z = Convert.ToUInt32(p3D.Z);

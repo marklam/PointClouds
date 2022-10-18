@@ -34,8 +34,8 @@ namespace OpenTKExtension
     public class CellVertex : TriangulationCell<Vertex, CellVertex>
     {
         static Random rnd = new Random();
-        OpenTK.Vector3 circumCenter;
-        OpenTK.Vector3 centroid;
+        OpenTK.Mathematics.Vector3 circumCenter;
+        OpenTK.Mathematics.Vector3 centroid;
 
         
         float Det(float[,] m)
@@ -54,7 +54,7 @@ namespace OpenTKExtension
             return norm;
         }
 
-        OpenTK.Vector3 GetCircumcenter()
+        OpenTK.Mathematics.Vector3 GetCircumcenter()
         {
             // From MathWorld: http://mathworld.wolfram.com/Circumcircle.html
 
@@ -95,30 +95,30 @@ namespace OpenTKExtension
 
             var s = -1/ (2* a);
             var r = System.Math.Abs(s) * System.Math.Sqrt(dx * dx + dy * dy - 4 * a * c);
-            return new OpenTK.Vector3(s * dx, s * dy, 0);
+            return new OpenTK.Mathematics.Vector3(s * dx, s * dy, 0);
         }
 
-        OpenTK.Vector3 GetCentroid()
+        OpenTK.Mathematics.Vector3 GetCentroid()
         {
-            return new OpenTK.Vector3(Vertices.Select(v => v[0]).Average(), Vertices.Select(v => v[1]).Average(), 0);
+            return new OpenTK.Mathematics.Vector3(Vertices.Select(v => v[0]).Average(), Vertices.Select(v => v[1]).Average(), 0);
         }
 
 
-        public OpenTK.Vector3 Circumcenter
+        public OpenTK.Mathematics.Vector3 Circumcenter
         {
             get
             {
-                if (circumCenter == default(OpenTK.Vector3))
+                if (circumCenter == default(OpenTK.Mathematics.Vector3))
                     circumCenter = GetCircumcenter();
                 return circumCenter;
             }
         }
 
-        public OpenTK.Vector3 Centroid
+        public OpenTK.Mathematics.Vector3 Centroid
         {
             get
             {
-                if (centroid == default(OpenTK.Vector3))
+                if (centroid == default(OpenTK.Mathematics.Vector3))
                     centroid = GetCentroid();
                  
                 return centroid;

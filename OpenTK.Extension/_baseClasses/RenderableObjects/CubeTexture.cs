@@ -4,6 +4,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {

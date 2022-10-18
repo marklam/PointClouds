@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using System.Text.RegularExpressions;
+using OpenTK.Mathematics;
 //using System.Linq;
 
 namespace OpenTKExtension
@@ -25,10 +26,10 @@ namespace OpenTKExtension
 
         }
     }
-    public class DistanceComparer : IComparer<KeyValuePair<OpenTK.Vector3, OpenTK.Vector3>>
+    public class DistanceComparer : IComparer<KeyValuePair<OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3>>
     {
 
-        public int Compare(KeyValuePair<OpenTK.Vector3, OpenTK.Vector3> a, KeyValuePair<OpenTK.Vector3, OpenTK.Vector3> b)
+        public int Compare(KeyValuePair<OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3> a, KeyValuePair<OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3> b)
         {
             float an = a.Key.NormSquared();
             float bn = a.Key.NormSquared();
@@ -40,7 +41,7 @@ namespace OpenTKExtension
             else
                 return 0;
 
-            
+
         }
     }
     public class NeighboursComparer : IComparer<Neighbours>
@@ -123,7 +124,7 @@ namespace OpenTKExtension
             else
                 return -1;
 
-        
+
 
 
         }
@@ -150,7 +151,7 @@ namespace OpenTKExtension
             }
         }
     }
- 
+
     public class Vector3_XYZ : IComparer<Vector3>
     {
 
@@ -198,7 +199,7 @@ namespace OpenTKExtension
             return 0;
         }
 
-   
+
     }
     public class VectorWithIndex_X : IComparer<VertexKDTree>
     {

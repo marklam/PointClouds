@@ -2,6 +2,7 @@
 using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.FastGLControl
 {
@@ -16,7 +17,7 @@ namespace OpenTKExtension.FastGLControl
         //public float MouseSensitivity = 0.00001f;
 
 
-        
+
         protected float minRy;
         protected float maxRy;
         protected float distance;
@@ -94,7 +95,7 @@ namespace OpenTKExtension.FastGLControl
             float p = ((((((pitch) > (minRy)) ? (pitch) : (minRy))) < (maxRy)) ? ((((pitch) > (minRy)) ? (pitch) : (minRy))) : (maxRy));
             base.Rotate(yaw, p, roll);
 
-            
+
         }
 
         public void SetTarget(Vector3 tgt)
@@ -134,8 +135,8 @@ namespace OpenTKExtension.FastGLControl
             Target += X + Y;
             Update();
         }
-      
-     
+
+
 
     }
 }

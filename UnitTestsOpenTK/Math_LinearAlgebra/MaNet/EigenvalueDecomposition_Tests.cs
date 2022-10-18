@@ -12,6 +12,7 @@ using NUnit.Framework;
 using System.Diagnostics;
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK.LinearAlgebra
 {

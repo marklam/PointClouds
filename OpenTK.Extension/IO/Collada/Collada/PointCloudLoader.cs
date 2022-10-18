@@ -6,6 +6,7 @@ using System.Globalization;
 
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.Collada
 {
@@ -15,8 +16,8 @@ namespace OpenTKExtension.Collada
 
 		private List<VertexForCollada> Vertices;
 		private List<Vector3> Normals;
-		private List<Vector2> Textures;		
-		private List<Vector3> Colors;	
+		private List<Vector2> Textures;
+		private List<Vector3> Colors;
 		private List<uint> PolyList;
 
 		private XElement mesh;
@@ -93,19 +94,19 @@ namespace OpenTKExtension.Collada
 			var result = new List<T>();
 
 			if(typeof(T) == typeof(Vector3))
-				for (var i = 0; i < count / 3; i++) 
+				for (var i = 0; i < count / 3; i++)
 					result.Add((T)(object)new Vector3(
 						array[i * 3] ,
 						array[i * 3 + 2],
 						array[i * 3 + 1]
 					));
 			else if(typeof(T) == typeof(Vector2))
-				for (var i = 0; i < count / 2; i++) 
+				for (var i = 0; i < count / 2; i++)
 					result.Add((T)(object)new Vector2(
 						array[i * 2],
 						array[i * 2 + 1]
 					));
-			
+
 			return result;
 		}
 
@@ -132,7 +133,7 @@ namespace OpenTKExtension.Collada
                 index++;
 
 
-                
+
                 var normalIndex = id[i * typeCount + index];
                 index++;
 
@@ -154,7 +155,7 @@ namespace OpenTKExtension.Collada
 		private void processVertex(uint posIndex, uint normalIndex, uint textureIndex, uint colorIndex)
         {
 			var currentVertex = Vertices[System.Convert.ToInt32(posIndex)];
-			
+
 			if (!currentVertex.IsSet)
             {
 				currentVertex.NormalIndex = normalIndex;
@@ -168,17 +169,17 @@ namespace OpenTKExtension.Collada
 			}
 		}
 
-		private void handleAlreadyProcessedVertex(VertexForCollada previousVertex, uint newNormalIndex, uint newTextureIndex, uint newColorIndex) 
+		private void handleAlreadyProcessedVertex(VertexForCollada previousVertex, uint newNormalIndex, uint newTextureIndex, uint newColorIndex)
 		{
 			if (previousVertex.HasSameInformation(newNormalIndex, newTextureIndex, newColorIndex)) {
 				PolyList.Add(previousVertex.Index);
 				return;
-			} 
+			}
 
 			if (previousVertex.DuplicateVertex != null) {
 				handleAlreadyProcessedVertex(previousVertex.DuplicateVertex, newNormalIndex, newTextureIndex, newColorIndex);
 				return;
-			} 
+			}
 
 			var duplicateVertex = new VertexForCollada(System.Convert.ToUInt32(Vertices.Count), previousVertex.Position);
 
@@ -191,7 +192,7 @@ namespace OpenTKExtension.Collada
 			PolyList.Add(duplicateVertex.Index);
 		}
 
-		private void removeUnusedVertices() 
+		private void removeUnusedVertices()
 		{
 			foreach (var vertex in Vertices) {
 				if (!vertex.IsSet) {
@@ -202,7 +203,7 @@ namespace OpenTKExtension.Collada
 			}
 		}
 
-		private PointCloud convertDataToArrays() 
+		private PointCloud convertDataToArrays()
 		{
 			var vectors= new Vector3[Vertices.Count];
 			var normals = new Vector3[Vertices.Count];
@@ -228,15 +229,15 @@ namespace OpenTKExtension.Collada
 				if(colors != null)
                     colors[i] = Colors[Convert.ToInt32(currentVertex.ColorIndex)];
 			}
-            
+
 			return new PointCloud(vectors, colors, normals, PolyList.ToArray(), null, textures);
             //return new PointCloud(verticesArray, normalsArray, texturesArray, colorsArray, PolyList.ToArray());
 
         }
 
-		private static List<float> parseFloats(string input) 
+		private static List<float> parseFloats(string input)
 		{
-            
+
             string[] arr = input.Split(' ');
             List<float> result = new List<float>();
             float f;
@@ -251,7 +252,7 @@ namespace OpenTKExtension.Collada
 
 		}
 
-		private static List<int> parseInts(string input) 
+		private static List<int> parseInts(string input)
 		{
 			return input.Split(' ' ).Select(x => int.Parse(x)).ToList();
 		}

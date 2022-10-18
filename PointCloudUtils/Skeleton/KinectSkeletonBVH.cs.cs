@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Kinect;
 using OpenTK;
+using OpenTK.Mathematics;
 using OpenTKExtension;
 
 
@@ -19,7 +20,7 @@ namespace PointCloudUtils
 
         public static void AddKinectSkeleton(BVHSkeleton Skeleton)
         {
-            
+
             //Die Person steht falsch herum im Koordinatensystem der Kinect! Es wird erst beim Abspeichern korrigiert, weshalb die Verarbeitung noch mit umgekehrten Koordinaten erfolgt
             // The person is in the wrong direction in the coordinate system of the Kinect! It will only be corrected when saving, so the processing is still with inverted coordinates
             BVHBone spineBase = new BVHBone(null, JointType.SpineBase.ToString(), 6, TransAxis.None, true);
@@ -214,7 +215,7 @@ namespace PointCloudUtils
                     noData = true;
                     break;
                 case "Spine":
-                    //Gibt die Rotation der Wirbelsäule zwischen Spine Joint und Shoulder Center an. 
+                    //Gibt die Rotation der Wirbelsäule zwischen Spine Joint und Shoulder Center an.
                     degVec[0] = 30;
                     degVec[1] = 0;
                     degVec[2] = 0;
@@ -232,15 +233,15 @@ namespace PointCloudUtils
                 default:
                     break;
             }
-            
+
             if (bone.Root == false)
             {
 
-                //Das BVH Skelett hat mehr Knochen wie das Kinect Skelett, diese Joints haben dauerthaft die Rotationen 0 0 0 
+                //Das BVH Skelett hat mehr Knochen wie das Kinect Skelett, diese Joints haben dauerthaft die Rotationen 0 0 0
                 if (noData == false)
                 {
                     Quaternion tempQuat;
-                    
+
                     if (!(bone.Name == "HipRight" || bone.Name == "HipLeft" || bone.Name == "ShoulderLeft" || bone.Name == "ShoulderRight" || bone.Name == "SpineBase2"))
                     {
                         tempQuat = MathHelper.Vector4ToQuat(body.JointOrientations[kinectJoint].Orientation);
@@ -337,7 +338,7 @@ namespace PointCloudUtils
                                 ParentKinectJoint = JointType.ShoulderLeft;
                                 break;
                         }
-                        
+
                         float skal = (skel.Joints[kinectJoint].Z / skel.Joints[ParentKinectJoint].Z);
                         skal = 1;
 
@@ -355,7 +356,7 @@ namespace PointCloudUtils
                             rotationOffset = MathHelper.VectorToDeg(body.JointOrientations[JointType.SpineShoulder].Orientation);
                             Matrix3 rotMat = Matrix3Extension.GetRotationMatrix(-(rotationOffset[0] * (float)Math.PI / 180) - 180, 0, 0);
                             Vector3 vec2 = vec.MultiplyByMatrix(rotMat);
-                            
+
                             tempQuat = MathHelper.getQuaternion(axis, vec2);
                             degVec = MathHelper.quat2Deg(tempQuat);
 
@@ -388,7 +389,7 @@ namespace PointCloudUtils
                             float[] rotationOffset = new float[3] { 0, 0, 0 };
                             rotationOffset = MathHelper.VectorToDeg(body.JointOrientations[JointType.SpineBase].Orientation);
                             Vector3 vec2 = vec.MultiplyByMatrix(Matrix3Extension.GetRotationMatrixY(-rotationOffset[1] * (float)Math.PI / 180));
-                           
+
 
                             tempQuat = MathHelper.getQuaternion(axis, vec2);
                             degVec = MathHelper.quat2Deg(tempQuat);

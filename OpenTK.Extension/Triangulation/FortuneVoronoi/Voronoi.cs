@@ -5,6 +5,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTKExtension;
 using System.Collections.Generic;
+using OpenTK.Mathematics;
 
 namespace FortuneVoronoi
 {
@@ -26,7 +27,7 @@ namespace FortuneVoronoi
 			else throw new Exception("Tried to add third vertex!");
 		}
 	}
-	
+
 	// VoronoiVertex or VoronoiDataPoint are represented as Vector
 
 	internal abstract class VNode
@@ -388,6 +389,6 @@ namespace FortuneVoronoi
 		public bool Valid = true;
 	}
 
-	
-	
+
+
 }

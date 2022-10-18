@@ -7,7 +7,7 @@ using OpenTKExtension;
 using ICPLib;
 using UnitTestsOpenTK;
 using OpenTK;
-
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK
 {

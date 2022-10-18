@@ -33,7 +33,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using OpenTK;
 using OpenTKExtension;
-
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -65,7 +65,7 @@ namespace OpenTKExtension
             this.Min = min;
             this.Max = max;
         }
-       
+
         //public static BoundingBox FromPoints(List<Vector3> points)
         //{
         //    if (points == null)
@@ -160,10 +160,10 @@ namespace OpenTKExtension
         public Vector3[] GetCorners()
         {
             return new Vector3[] {
-                new Vector3(this.Min.X, this.Max.Y, this.Max.Z), 
+                new Vector3(this.Min.X, this.Max.Y, this.Max.Z),
                 new Vector3(this.Max.X, this.Max.Y, this.Max.Z),
-                new Vector3(this.Max.X, this.Min.Y, this.Max.Z), 
-                new Vector3(this.Min.X, this.Min.Y, this.Max.Z), 
+                new Vector3(this.Max.X, this.Min.Y, this.Max.Z),
+                new Vector3(this.Min.X, this.Min.Y, this.Max.Z),
                 new Vector3(this.Min.X, this.Max.Y, this.Min.Z),
                 new Vector3(this.Max.X, this.Max.Y, this.Min.Z),
                 new Vector3(this.Max.X, this.Min.Y, this.Min.Z),
@@ -199,7 +199,7 @@ namespace OpenTKExtension
             result = Contains(box);
         }
 
-      
+
         public ContainmentType Contains(Vector3 point)
         {
             ContainmentType result;
@@ -232,13 +232,13 @@ namespace OpenTKExtension
 
         }
 
-   
 
-   
+
+
         public static BoundingBox CreateMerged(BoundingBox original, BoundingBox additional)
         {
             return new BoundingBox(
-                Vector3.Min(original.Min, additional.Min), Vector3.Max(original.Max, additional.Max));
+                Vector3.MagnitudeMin(original.Min, additional.Min), Vector3.MagnitudeMax(original.Max, additional.Max));
         }
 
         public static void CreateMerged(ref BoundingBox original, ref BoundingBox additional, out BoundingBox result)
@@ -256,7 +256,7 @@ namespace OpenTKExtension
             return (obj is BoundingBox) ? this.Equals((BoundingBox)obj) : false;
         }
 
-      
+
 
         public void GetCorners(Vector3[] corners)
         {
@@ -324,7 +324,7 @@ namespace OpenTKExtension
             return;
         }
 
-     
+
         //public void Intersects(ref BoundingSphere sphere, out bool result)
         //{
         //    result = Intersects(sphere);

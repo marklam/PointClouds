@@ -3,6 +3,8 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using OpenTK.Mathematics;
+
 namespace OpenTKExtension
 {
 

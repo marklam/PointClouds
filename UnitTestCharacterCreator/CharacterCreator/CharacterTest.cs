@@ -8,6 +8,7 @@ using UnitTestsOpenTK;
 using ICPLib;
 using OpenTK;
 using CharacterCreator;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK.Characters
 {

@@ -7,6 +7,7 @@
 
 using System;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {

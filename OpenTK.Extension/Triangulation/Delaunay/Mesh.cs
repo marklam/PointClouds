@@ -14,6 +14,7 @@ using System.Text;
 
 using OpenTKExtension;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.Triangulation
 {

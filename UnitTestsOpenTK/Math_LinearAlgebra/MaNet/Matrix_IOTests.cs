@@ -12,6 +12,7 @@ using System.Data;
 
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK.LinearAlgebra
 {

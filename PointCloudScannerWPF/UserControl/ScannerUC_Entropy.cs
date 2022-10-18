@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using PointCloudUtils;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace ScannerWPF
 {

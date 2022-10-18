@@ -3,25 +3,26 @@
 using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
 
     public abstract class RenderableObject : IDisposable
     {
-        
+
         public PointCloud PointCloud = new PointCloud();
         public ShaderProgram shaderProgram = new ShaderProgram();
-        
+
         protected bool initialized;
 
         public Vector3 Position = Vector3.Zero;
-       
-        
+
+
         public float Scale = 1f;
-        
+
         private Matrix4 p;
-      
+
         Matrix4 m;
         Matrix4 v;
         Matrix4 mvp;
@@ -38,7 +39,7 @@ namespace OpenTKExtension
         protected int vboTexturesID;
         //protected int vboUniform;
 
-       
+
 
 
         protected PrimitiveType primitiveType;
@@ -47,9 +48,9 @@ namespace OpenTKExtension
         { }
         public virtual void FillIndexBuffer()
         { }
-       
-      
-       
+
+
+
         public RenderableObject()
         {
 
@@ -65,10 +66,10 @@ namespace OpenTKExtension
         public virtual void InitializeGL()
         {
         }
-    
+
         protected void initBuffers()
         {
-               
+
             // Generate Array Buffer Id-s
             GL.GenVertexArrays(1, out vaoID);
             GL.GenBuffers(1, out vboVerticesID);
@@ -119,10 +120,10 @@ namespace OpenTKExtension
                 deleteBuffers();
                 initBuffers();
 
-              
+
                 GL.BindVertexArray(vaoID);
 
-                //bind vertices: this.PointCloud.Vectors (pointer: vboVerticesID) to -> "vVertex" in shader 
+                //bind vertices: this.PointCloud.Vectors (pointer: vboVerticesID) to -> "vVertex" in shader
                 GL.BindBuffer(BufferTarget.ArrayBuffer, vboVerticesID);
                 GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(PointCloud.Vectors.Length * Vector3.SizeInBytes), this.PointCloud.Vectors, BufferUsageHint.StaticDraw);
                 //CheckGLError();
@@ -143,7 +144,7 @@ namespace OpenTKExtension
                 else if (this.PointCloud.Colors != null)
                 {
 
-                    //bind vertices: this.PointCloud.Colors (pointer: vboColorsID) to -> "vColor" in shader 
+                    //bind vertices: this.PointCloud.Colors (pointer: vboColorsID) to -> "vColor" in shader
                     GL.BindBuffer(BufferTarget.ArrayBuffer, vboColorsID);
                     GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(this.PointCloud.Colors.Length * Vector3.SizeInBytes), this.PointCloud.Colors, BufferUsageHint.StaticDraw);
 
@@ -165,7 +166,7 @@ namespace OpenTKExtension
 
                 }
 
-               
+
 
                 // Bind current context to Array Buffer ID
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, vboIndicesID);
@@ -184,8 +185,8 @@ namespace OpenTKExtension
 
             }
         }
-       
-  
+
+
         private void ValidateBufferSize()
         {
             int bufferSize = 0;
@@ -216,7 +217,7 @@ namespace OpenTKExtension
                 m = value;
             }
         }
-     
+
         public virtual Matrix4 V
         {
             get
@@ -230,8 +231,8 @@ namespace OpenTKExtension
 
             }
         }
-       
-        
+
+
         public virtual Matrix4 P
         {
             get
@@ -285,7 +286,7 @@ namespace OpenTKExtension
                     //GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, Convert.ToSingle(TextureEnvMode.Modulate));
                     GL.BindTexture(TextureTarget.Texture2D, this.PointCloud.Texture.TextureID);
                     //GL.ActiveTexture(TextureUnit.Texture0);
-                    
+
                 }
                 else
                 {
@@ -302,12 +303,12 @@ namespace OpenTKExtension
                     GL.DrawElements(myRenderMode, this.PointCloud.Indices.Length, DrawElementsType.UnsignedInt, 0);
                     //GL.DrawArrays(myRenderMode, 0, this.PointCloud.Indices.Length);
                 }
-               
-                
 
-               
 
-               
+
+
+
+
             }
             catch (Exception err1)
             {
@@ -317,7 +318,7 @@ namespace OpenTKExtension
 
         }
 
-  
+
 
         #region IDisposable
 
@@ -336,7 +337,7 @@ namespace OpenTKExtension
 
         private void deleteBuffers()
         {
-           
+
             GL.DeleteBuffer(vboVerticesID);
             GL.DeleteBuffer(vboIndicesID);
             GL.DeleteBuffer(vboColorsID);
@@ -350,7 +351,7 @@ namespace OpenTKExtension
         /// </summary>
         ~RenderableObject()
         {
-            if (vaoID != 0) 
+            if (vaoID != 0)
                 System.Windows.Forms.MessageBox.Show("Renderable object was not disposed of properly");
                // System.Diagnostics.Debug.Fail("Renderable object was not disposed of properly.");
         }

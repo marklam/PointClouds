@@ -22,7 +22,7 @@ using OpenTK;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Data;
-
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {

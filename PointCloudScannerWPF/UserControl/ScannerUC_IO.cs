@@ -18,19 +18,18 @@ using Microsoft.Kinect;
 using PointCloudUtils;
 using OpenTKExtension;
 using OpenTK;
-
-
+using OpenTK.Mathematics;
 
 namespace ScannerWPF
 {
     /// <summary>
     /// </summary>
-    public partial class PointCloudUC 
+    public partial class PointCloudUC
     {
         private string pathModels = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + GLSettings.PathPointClouds;
         string lastFileOpened;
         private readonly System.IO.FileSystemWatcher _watcher = new System.IO.FileSystemWatcher();
-       
+
 
         private void buttonSaveDepthPoints_Click(object sender, RoutedEventArgs e)
         {
@@ -39,9 +38,9 @@ namespace ScannerWPF
         }
         public void OpenSavedDepthData()
         {
-            List<OpenTK.Vector3> listPoints = UtilsPointCloudIO.Read_XYZ_Vectors(pathModels, GLSettings.FileNamePointCloudLast1);
+            List<OpenTK.Mathematics.Vector3> listPoints = UtilsPointCloudIO.Read_XYZ_Vectors(pathModels, GLSettings.FileNamePointCloudLast1);
             this.DepthMetaData = new DepthMetaData(listPoints, false);
-            
+
 
         }
         public void OpenSavedColorDataWithDepth()
@@ -65,14 +64,14 @@ namespace ScannerWPF
             {
                 MessageBox.Show("Error reading a color Info With Depth: " + PointCloudScannerSettings.FileNamePLY + " - please create one first");
             }
-           
+
         }
         private void ShowColorWithDepthScreenshot()
         {
             this.imageColor.Source = null;
             //byte[] mydisplayPixels = DepthMetaData.RotateColorInfoForDepth(ColorMetaData.Pixels, DepthMetaData.XResDefault, DepthMetaData.YResDefault);
             this.imageColor.Source = PointCloudUtils.ImageSourceUtils.CreateImageSource(ColorMetaData.Pixels, DepthMetaData.XDepthMaxKinect, DepthMetaData.YDepthMaxKinect);
-            
+
         }
         private void SaveDepthBitmap()
         {
@@ -80,7 +79,7 @@ namespace ScannerWPF
 
             WriteableBitmapUtils.SaveImage(pathModels, "Depth", depthBitmap, true);
 
-            
+
         }
 
         public void SaveDepthPoints()
@@ -96,13 +95,13 @@ namespace ScannerWPF
             GLSettings.FileNamePointCloudLast1 = DateTime.Now.Year.ToString() + "." + DateTime.Now.Month.ToString() + "." + DateTime.Now.Day.ToString() + "." + DateTime.Now.Hour.ToString() + "." + DateTime.Now.Minute.ToString() + "." + DateTime.Now.Second.ToString() + "_PointCloud.xyz";
             UtilsPointCloudIO.ToXYZFile(listPoints, GLSettings.FileNamePointCloudLast1, pathModels);
         }
-      
+
         private void SaveDepthPointsInterpolated()
         {
             if (listPointsInterpolated == null)
                 return;
             //-----------------------------------------------
-            //now interpolate last 10 frames to one frame and save 
+            //now interpolate last 10 frames to one frame and save
 
             PointCloudScannerSettings.InterpolateFrames = true;
             GLSettings.FileNamePointCloudLast1 = DateTime.Now.Year.ToString() + "." + DateTime.Now.Month.ToString() + "." + DateTime.Now.Day.ToString() + "." + DateTime.Now.Hour.ToString() + "." + DateTime.Now.Minute.ToString() + "." + DateTime.Now.Second.ToString() + "_PointCloudInterpolated.xyz";
@@ -114,14 +113,14 @@ namespace ScannerWPF
             if (listPointsInterpolated == null)
                 return;
             //-----------------------------------------------
-            //now interpolate last 10 frames to one frame and save 
+            //now interpolate last 10 frames to one frame and save
 
 
             //ushort[] rotatedPoints = DepthMetaData.RotateDepthFrame(this.DepthMetaData.DepthFrameData, DepthMetaData.XResDefault, DepthMetaData.YResDefault);
 
             WriteableBitmap depthInterpolated = DepthMetaData.ToWriteableBitmap(listPointsInterpolated);
             WriteableBitmapUtils.SaveImage(pathModels, "DepthInterpolated", depthInterpolated, true);
-            
+
         }
         private void SaveColorBitmap()
         {
@@ -131,7 +130,7 @@ namespace ScannerWPF
                 //ImageSource imSource = ImageSourceUtils.CreateImageSource(ColorMetaData.Pixels, ColorMetaData.XResDefault, ColorMetaData.YResDefault);
                 WriteableBitmap bitmap = WriteableBitmapUtils.FromByteArray_ToColor(ColorMetaData.Pixels, ColorMetaData.XColorMaxKinect, ColorMetaData.YColorMaxKinect);
                 WriteableBitmapUtils.SaveImage(pathModels, "Color_", bitmap, true);
-                
+
             }
 
 
@@ -146,7 +145,7 @@ namespace ScannerWPF
             UtilsPointCloudIO.ToObjFile_ColorInVertex(pc, pathModels, PointCloudScannerSettings.FileNameOBJ);
 
 
-            
+
         }
         private void SaveDepthAndColor_DataAndImage()
         {
@@ -166,7 +165,7 @@ namespace ScannerWPF
                 System.Diagnostics.Debug.WriteLine("Error " + err.Message);
 
             }
-            
+
         }
 
         private void OnOpen(object sender, RoutedEventArgs e)
@@ -179,8 +178,8 @@ namespace ScannerWPF
                 Load(openFileDialog.FileName);
             }
         }
-     
-        
+
+
         internal void Load(string pathFile)
         {
             if (pathFile != null && System.IO.File.Exists(pathFile))

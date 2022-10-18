@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Graphics;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenTKExtension;
 using System.Drawing;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace PointCloudUtils
 {
@@ -21,7 +22,7 @@ namespace PointCloudUtils
         protected int depthQuality;
 
 
-        protected List<OpenTK.Vector3> listPointsInterpolated;
+        protected List<OpenTK.Mathematics.Vector3> listPointsInterpolated;
         protected int numberOfMaxFramesInterpolated = 10;
         protected int iFrameInterpolation = 0;
         protected int numberOfCutPoints = 0;

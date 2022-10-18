@@ -6,6 +6,7 @@ using System.Drawing;
 using Microsoft.Kinect;
 using OpenTKExtension;
 using Newtonsoft.Json;
+using OpenTK.Mathematics;
 
 namespace PointCloudUtils
 {

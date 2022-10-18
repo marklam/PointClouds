@@ -6,6 +6,7 @@ using OpenTK.Graphics.OpenGL;
 using System.IO;
 using OpenTK;
 using System.Drawing;
+using OpenTK.Mathematics;
 
 
 namespace OpenTKExtension
@@ -23,10 +24,10 @@ namespace OpenTKExtension
         private Dictionary<String, UniformInfo> uniforms = new Dictionary<string, UniformInfo>();
         private Dictionary<String, uint> buffers = new Dictionary<string, uint>();
 
-        
+
         public ShaderProgram()
         {
-           
+
         }
         public bool InitializeShaders(string filename_vshader, string filename_fshader, string path)
         {
@@ -50,7 +51,7 @@ namespace OpenTKExtension
             catch(Exception err)
             {
                 string errorMessage = "Error initializing shaderes. Error for fragment shader is: " + this.FragmentShader.ShaderLog + " : for vertex shader : " + this.VertexShader.ShaderLog;
-           
+
                 System.Windows.Forms.MessageBox.Show(errorMessage + err.Message);
                 return false;
                 //System.Diagnostics.Debug.WriteLine("Error in initializing Shaders " + err.Message);
@@ -60,7 +61,7 @@ namespace OpenTKExtension
         }
         public void Use()
         {
-            
+
             GL.UseProgram(this.ProgramID);
 
         }
@@ -111,13 +112,13 @@ namespace OpenTKExtension
                 stride = System.Runtime.InteropServices.Marshal.SizeOf(typeof(Vector2));
 
             GL.VertexAttribPointer(addr, size, VertexAttribPointerType.Float, normalized, stride, 0);
-            
+
             GL.EnableVertexAttribArray(addr);
             return addr;
 
         }
-    
-   
+
+
         private void SetAttributes()
         {
             int number;
@@ -129,9 +130,9 @@ namespace OpenTKExtension
                 AttributeInfo info = new AttributeInfo();
                 int length = 0;
 
-                StringBuilder name = new StringBuilder();
+                string name;
 
-                GL.GetActiveAttrib(ProgramID, i, 256, out length, out info.Size, out info.type, name);
+                GL.GetActiveAttrib(ProgramID, i, 256, out length, out info.Size, out info.type, out name);
 
                 info.Name = name.ToString();
                 info.Address = GL.GetAttribLocation(ProgramID, info.Name);
@@ -148,16 +149,16 @@ namespace OpenTKExtension
                 UniformInfo info = new UniformInfo();
                 int length = 0;
 
-                StringBuilder name = new StringBuilder();
+                string name;
 
-                GL.GetActiveUniform(ProgramID, i, 256, out length, out info.Size, out info.type, name);
+                GL.GetActiveUniform(ProgramID, i, 256, out length, out info.Size, out info.type, out name);
 
                 info.Name = name.ToString();
                 uniforms.Add(name.ToString(), info);
                 info.Address = GL.GetUniformLocation(ProgramID, info.Name);
             }
         }
-      
+
 
         private void GenBuffers()
         {
@@ -240,8 +241,8 @@ namespace OpenTKExtension
                 return (new Version(GL.GetString(StringName.Version).Substring(0, 3)) >= new Version(2, 0) ? true : false);
             }
         }
-       
-       
+
+
         /// <summary>
         /// Change a value Variable of the Shader
         /// </summary>
@@ -255,7 +256,7 @@ namespace OpenTKExtension
                   GL.Uniform1(location, x);
 
             this.UnUse();
-           
+
         }
 
         /// <summary>
@@ -396,7 +397,7 @@ namespace OpenTKExtension
                     System.Diagnostics.Debug.WriteLine("Shader Error : " + code.ToString());
             }
         }
-        
+
         #endregion
     }
 }

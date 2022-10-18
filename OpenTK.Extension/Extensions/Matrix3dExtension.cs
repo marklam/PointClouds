@@ -4,14 +4,14 @@
 //     Edgar Maass: (email: maass@logisel.de)
 //               Code adaption, changed to user control
 //
-//Software used: 
+//Software used:
 //    OpenGL : http://www.opengl.org
 //    OpenTK : http://www.opentk.com
 //
-// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective, 
-// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person 
+// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective,
+// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person
 // be liable for any loss, expense or damage, of any type or nature arising out of the use of, or inability to use this software or program, including, but not
-// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition. 
+// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition.
 //
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,12 @@ using OpenTK;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Data;
-
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
-  
-    //Extensios attached to the object which folloes the "this" 
+
+    //Extensios attached to the object which folloes the "this"
     public static class Matrix3dExtension
     {
         public static Matrix3d MultiplyScalar(this Matrix3d A, double val)
@@ -122,7 +122,7 @@ namespace OpenTKExtension
         }
 
         /// <summary>
-        /// Rotates around x,y and z axis by the given amount in Degrees 
+        /// Rotates around x,y and z axis by the given amount in Degrees
         /// </summary>
         /// <param name="mat"></param>
         /// <param name="x"></param>
@@ -140,7 +140,7 @@ namespace OpenTKExtension
             return Rx;
         }
         /// <summary>
-        /// Rotates around x,y and z axis by the given amount in radiants 
+        /// Rotates around x,y and z axis by the given amount in radiants
         /// </summary>
         /// <param name="mat"></param>
         /// <param name="x"></param>
@@ -240,12 +240,12 @@ namespace OpenTKExtension
                 a[i] = d;
             }
 
-          
+
             return a;
         }
 
         /// <summary>
-        /// Parses strig to 
+        /// Parses strig to
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -419,7 +419,7 @@ namespace OpenTKExtension
 
 
         /// <summary>
-        /// Parses multiline text input  from a textreader into a Matrix where each line 
+        /// Parses multiline text input  from a textreader into a Matrix where each line
         /// corresponsd to a row and the items on the line are space deliminted
         /// </summary>
         /// <param name="reader">The TextReader</param>
@@ -774,7 +774,7 @@ namespace OpenTKExtension
                 {
                     double d1 = Math.Abs(mat[i, j] - other[i, j]);
                     double d = Math.Abs( d1  / mat[i, j] );
-                   
+
                     if (d > threshold && d1 > threshold)
                     {
 

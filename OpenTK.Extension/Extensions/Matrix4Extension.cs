@@ -8,11 +8,12 @@ using OpenTK;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Data;
+using OpenTK.Mathematics;
 
 
 namespace OpenTKExtension
 {
-    //Extensios attached to the object which folloes the "this" 
+    //Extensios attached to the object which folloes the "this"
     public static class Matrix4Extension
     {
         /// <summary>
@@ -92,7 +93,7 @@ namespace OpenTKExtension
         }
         public static void Print(this Matrix4 m, string name)
         {
-            
+
             System.Diagnostics.Debug.WriteLine(name);
 
 
@@ -144,9 +145,9 @@ namespace OpenTKExtension
 
             for (int i = 0; i < pc.Vectors.Length; i++)
             {
-                pc.Vectors[i] = matrix.TransformVector(pc.Vectors[i]);               
+                pc.Vectors[i] = matrix.TransformVector(pc.Vectors[i]);
             }
-            
+
         }
         public static PointCloud TransformPoints(this Matrix4 matrix, PointCloud a)
         {
@@ -155,7 +156,7 @@ namespace OpenTKExtension
             PointCloud b = new PointCloud();
             b.Vectors = new Vector3[a.Vectors.Length];
 
-           
+
             for (int i = 0; i < a.Vectors.Length; i++)
             {
                 b.Vectors[i] = matrix.TransformVector(a.Vectors[i]);
@@ -182,7 +183,7 @@ namespace OpenTKExtension
             {
                 vectors[i] = matrix.TransformVector(vectors[i]);
             }
-            
+
         }
         public static void TransformVectors(this Matrix4 matrix, Vector3[] vectors)
         {
@@ -195,7 +196,7 @@ namespace OpenTKExtension
             }
 
         }
-    
+
         public static float[] TransformPointfloat(float[] pointSource, float[,] matrix)
         {
             float[] pointReturn = new float[3];
@@ -282,7 +283,7 @@ namespace OpenTKExtension
             {
                 trace -= EV[i];
             }
-           
+
 
             return trace;
 
@@ -294,7 +295,7 @@ namespace OpenTKExtension
             {
                 for (int j = 0; j < 4; j++)
                     sum += Math.Abs(mat4d[i,j]);
-                
+
             }
 
 
@@ -350,7 +351,7 @@ namespace OpenTKExtension
                 thetaZ = 0;
             }
             Vector3 v = new Vector3(thetaX, thetaY, thetaZ);
-            
+
             for(int i = 0; i < 3; i++)
             {
                 v[i] = Math.Abs(v[i]);
@@ -360,7 +361,7 @@ namespace OpenTKExtension
                     v[i] -= 1;
 
             }
-            
+
             return v;
 
         }
@@ -406,7 +407,7 @@ namespace OpenTKExtension
             matrix[0, 3] = x;
             matrix[1, 3] = y;
             matrix[2, 3] = z;
-            Matrix4.Mult(ref mat, ref matrix, out mat);
+            Matrix4.Mult(in mat, in matrix, out mat);
 
         }
         public static void Rotate(this Matrix4 mat, float angle, float x, float y, float z)
@@ -457,7 +458,7 @@ namespace OpenTKExtension
             matrix[1, 2] = (yz - wx) * 2;
             matrix[2, 2] = zz * 2 + s;
 
-            Matrix4.Mult(ref mat, ref matrix, out mat);
+            Matrix4.Mult(in mat, in matrix, out mat);
 
         }
         public static void Scale(this Matrix4 mat, float x, float y, float z)
@@ -473,7 +474,7 @@ namespace OpenTKExtension
             matrix[1, 1] = y;
             matrix[2, 2] = z;
 
-            Matrix4.Mult(ref mat, ref matrix, out mat);
+            Matrix4.Mult(in mat, in matrix, out mat);
 
         }
         /// <summary>Transform a direction vector by the given Matrix
@@ -607,7 +608,7 @@ namespace OpenTKExtension
             StringBuilder sb = new StringBuilder();
 
             List<string> lines = new List<string>();
-                        
+
             for (int i = 0; i < 4; ++i)
             {
                 string line = string.Empty;
@@ -667,9 +668,9 @@ namespace OpenTKExtension
             float[] value = new float[3];
             //Quelle: http://social.msdn.microsoft.com/Forums/en-US/b644698d-bdec-47a2-867e-574cf84e5db7/what-is-the-default-sequence-of-hierarchical-rotation-matrix-eg-xyz-#b3946d0d-9658-4c2b-b14b-69e79070c7d2
             // https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
-            // Kinect Matrix hat die Tait-Bryan Convention mit Y1 X2 Z3 
+            // Kinect Matrix hat die Tait-Bryan Convention mit Y1 X2 Z3
             // Problem: Es gibt immer 2 Möglichkeiten für Drehung im 3D Raum, weshalb die Gradwerte nicht immer den Quaternionenwerte entsprechen müssen!
-            // Drehung um y- Achse 
+            // Drehung um y- Achse
             value[0] = (float)Math.Asin(-mat.M23);
             // Drehung um x- Achse
             value[1] = (float)Math.Atan2(mat.M13 / Math.Cos(value[0]), mat.M33 / Math.Cos(value[0]));

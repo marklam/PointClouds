@@ -8,6 +8,7 @@ using UnitTestsOpenTK;
 using ICPLib;
 
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK.InWork
 {

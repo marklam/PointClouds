@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
 
     public static class QuaternionExtension
     {
-        public static Vector3 QuaternionToYawPitchRoll(this OpenTK.Vector4 q)
+        public static Vector3 QuaternionToYawPitchRoll(this OpenTK.Mathematics.Vector4 q)
         {
             const float Epsilon = 0.0009765625f;
             const float Threshold = 0.5f - Epsilon;
@@ -52,11 +53,11 @@ namespace OpenTKExtension
 
                 roll = (float)Math.Asin(2 * TEST);
 
-            }//if 
+            }//if
 
             return new Vector3() { X = yaw, Y = pitch, Z = roll };
 
-        }//method 
+        }//method
         /// <summary>Clone the vector
         /// </summary>
         /// <param name="vec">The vector to transform</param>

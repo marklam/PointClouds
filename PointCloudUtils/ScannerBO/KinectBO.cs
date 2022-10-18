@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Diagnostics;
 using Microsoft.Kinect;
 using System.Windows.Forms;
+using OpenTK.Mathematics;
 //using Microsoft.Kinect.Face;
 
 namespace PointCloudUtils
@@ -973,7 +974,7 @@ namespace PointCloudUtils
        
         public void OpenSavedDepthData()
         {
-            List<OpenTK.Vector3> listPoints = UtilsPointCloudIO.Read_XYZ_Vectors(PathModels, GLSettings.FileNamePointCloudLast1);
+            List<OpenTK.Mathematics.Vector3> listPoints = UtilsPointCloudIO.Read_XYZ_Vectors(PathModels, GLSettings.FileNamePointCloudLast1);
             this.DepthMetaData = new DepthMetaData(listPoints, false);
 
 

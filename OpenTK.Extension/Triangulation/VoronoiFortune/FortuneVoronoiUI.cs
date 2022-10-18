@@ -29,6 +29,8 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
+
 namespace VoronoiFortune
 {
 	/// <summary>

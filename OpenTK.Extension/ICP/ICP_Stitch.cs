@@ -12,17 +12,18 @@ using System.Windows.Media;
 using System.Diagnostics;
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace ICPLib
 {
-  
-   
-    public partial class IterativeClosestPointTransform 
+
+
+    public partial class IterativeClosestPointTransform
     {
-        
-     
-       
-        
+
+
+
+
         private bool CheckExitOnIterations()
         {
             this.NumberOfIterations++;
@@ -54,16 +55,16 @@ namespace ICPLib
             Vector3 p1 = pointsTarget.Vectors[iPoint];
             Vector3 p2 = pointsSource.Vectors[iPoint];
 
-           
+
             pointsTargetTrial.AddVector(p1);
             pointsSourceTrial.AddVector(p2);
 
 
 
             MathUtilsVTK.FindTransformationMatrix(pointsSourceTrial, pointsTargetTrial, myLandmarkTransform);//, accumulate);
-     
+
             Matrix4 myMatrix = myLandmarkTransform.Matrix;
-          
+
 
             return myMatrix;
         }
@@ -102,10 +103,10 @@ namespace ICPLib
 
                     res.MeanDistance = PointCloud.MeanDistance(res.PointsTarget, res.PointsTransformed);
                     //res.MeanDistance = totaldist / Convert.ToSingle(res.PointsSource.Count);
-                  
+
                     solutionList.Add(res);
 
-                  
+
                 }
 
 
@@ -126,7 +127,7 @@ namespace ICPLib
                         //System.Diagnostics.Debug.WriteLine("Solution of start sequence is: ");
                         DebugWriteUtils.WriteTestOutputVector3("Solution of start sequence", result.Matrix, result.PointsSource, result.PointsTransformed, result.PointsTarget);
                         return result;
-                   
+
                     }
 
                 }
@@ -163,7 +164,7 @@ namespace ICPLib
                 if (!CheckIfMatrixIsOK(solutionList[i].Matrix))
                 {
                     iTotal++;
-                    
+
                     solutionList.RemoveAt(i);
                 }
             }
@@ -201,7 +202,7 @@ namespace ICPLib
                 return null;
             }
         }
-  
+
         private float CheckNewPointDistance(int iPoint, Matrix4 myMatrix, PointCloud pointsTarget, PointCloud pointsSource)
         {
             Vector3 p1 = pointsTarget.Vectors[iPoint];
@@ -222,7 +223,7 @@ namespace ICPLib
             int iPoint = 0;
             try
             {
-               
+
                 PointCloud pointsTarget = null;
                 PointCloud pointsSource = null;
 
@@ -231,8 +232,8 @@ namespace ICPLib
                     return null;
 
                 Matrix4 myMatrix = res.Matrix;
-                
-               
+
+
 
                 float oldMeanDistance = 0;
                 //now try all points and check if outlier
@@ -283,7 +284,7 @@ namespace ICPLib
                         //remove point from point list
                         pointsTarget.RemoveAt(iPoint);
                         pointsSource.RemoveAt(iPoint);
-                       
+
 
                     }
 
@@ -332,7 +333,7 @@ namespace ICPLib
                 myVectorsTransformed = new List<Vector3>();
 
                 myPCLTransformed = m.TransformPoints(myPCLToBeMatched);
-              
+
                 //write all results in debug output
                 DebugWriteUtils.WriteTestOutputVector3("Soluation of Points With Subset", m, myPCLToBeMatched, myPCLTransformed, mypointCloudTarget);
 
@@ -343,7 +344,7 @@ namespace ICPLib
                 return null;
             }
             //for output:
-           
+
 
             return myPCLTransformed;
 
@@ -398,13 +399,13 @@ namespace ICPLib
                 //pointsSource = mypointsSource;
                 //PointsTransformed = myPointsTransformed;
 
-              
+
                 return myPointsTransformed;
             }
             return null;
 
         }
-        
+
     }
-   
+
 }

@@ -4,14 +4,14 @@
 //     Edgar Maass: (email: maass@logisel.de)
 //               Code adaption, changed to user control
 //
-//Software used: 
+//Software used:
 //    OpenGL : http://www.opengl.org
 //    OpenTK : http://www.opentk.com
 //
-// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective, 
-// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person 
+// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective,
+// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person
 // be liable for any loss, expense or damage, of any type or nature arising out of the use of, or inability to use this software or program, including, but not
-// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition. 
+// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition.
 //
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Threading;
 using OpenTKExtension;
-using System.Windows.Media.Media3D;
 using OpenTK;
 
 namespace OpenTKExtension
@@ -33,16 +32,16 @@ namespace OpenTKExtension
     public partial class MultipleOGLControls : Form
     {
 
-        
-        
+
+
         public OpenGLUC OpenGLControl;
 
         public MultipleOGLControls()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(CultureInfo.CurrentCulture.LCID);
             InitializeComponent();
-           
-         
+
+
             AddOpenGLControl();
 
             if (!GLSettings.IsInitializedFromSettings)
@@ -57,33 +56,33 @@ namespace OpenTKExtension
         {
             this.OpenGLControl = new OpenGLUC();
             this.SuspendLayout();
-            // 
+            //
             // openGLControl1
-            // 
+            //
             this.OpenGLControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OpenGLControl.Location = new System.Drawing.Point(0, 0);
             this.OpenGLControl.Name = "openGLControl1";
             this.OpenGLControl.Size = new System.Drawing.Size(854, 453);
             this.OpenGLControl.TabIndex = 0;
 
-           
-          
+
+
             this.ResumeLayout(false);
         }
-    
-   
+
+
 
         protected override void OnClosed(EventArgs e)
         {
-           
+
             GLSettings.Height = this.Height;
             GLSettings.Width = this.Width;
 
             GLSettings.SaveSettings();
             base.OnClosed(e);
         }
-      
-       
+
+
 
         //public void ShowListOfVertices(PointCloud myPCLList)
         //{
@@ -94,8 +93,8 @@ namespace OpenTKExtension
         {
             if (removeOthers)
                 this.OpenGLControl.RemoveAllPointClouds();
-            
-          
+
+
 
             this.OpenGLControl.OGLControl.GLrender.AddPointCloud(myP);
 
@@ -113,14 +112,14 @@ namespace OpenTKExtension
             this.OpenGLControl.RemoveAllPointClouds();
 
             //target in green
-            
+
             if (mypointCloudTarget != null)
             {
 
                 if (changeColor)
                 {
                     mypointCloudTarget.Colors = ColorExtensions.ToVector3Array(mypointCloudTarget.Vectors.Length, 0, 255, 0);
-                    
+
                 }
                 ShowPointCloudOpenGL(mypointCloudTarget, false);
 
@@ -129,7 +128,7 @@ namespace OpenTKExtension
             if (mypointCloudSource != null)
             {
                 //source in white
-               
+
                 if (changeColor)
                     mypointCloudSource.Colors = ColorExtensions.ToVector3Array(mypointCloudSource.Vectors.Length, 255, 255, 255);
 
@@ -146,12 +145,12 @@ namespace OpenTKExtension
 
                 ShowPointCloudOpenGL(mypointCloudResult, false);
 
-               
+
 
             }
 
         }
-   
+
         /// <summary>
         /// at least source points should be non zero
         /// </summary>
@@ -203,12 +202,12 @@ namespace OpenTKExtension
             }
 
         }
-       
+
         public void ClearModels()
         {
             OpenGLControl.RemoveAllPointClouds();
         }
-       
+
         public bool UpdateFirstModel(PointCloud pc)
         {
             //ClearModels();
@@ -222,13 +221,13 @@ namespace OpenTKExtension
         {
 
             this.OpenGLControl.ShowPointCloud( pc);
-            
+
         }
-      
-      
+
+
         private void TestForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-           
+
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -237,7 +236,7 @@ namespace OpenTKExtension
             base.OnMouseWheel(e);
         }
 
-    
+
         public void IPCOnTwoPointClouds()
         {
 

@@ -4,6 +4,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -18,14 +19,14 @@ namespace OpenTKExtension
             this.pointCloud = new OpenTKExtension.PointCloud(points, null, null, null, null, null);
 
         }
-      
+
         public void Update(List<Vector3> points)
         {
             this.pointCloud = new OpenTKExtension.PointCloud(points, null, null, null, null, null);
             FillPointCloud();
             FillIndexBuffer();
         }
-     
+
         public override void InitializeGL()
         {
             this.primitiveType = PrimitiveType.Points;
@@ -46,14 +47,14 @@ namespace OpenTKExtension
                 FillPointCloud();
                 FillIndexBuffer();
 
-             
+
                 //this.RefreshRenderableData();
             }
 
         }
 
-        
-      
+
+
         public override void Dispose()
         {
 
@@ -78,14 +79,14 @@ namespace OpenTKExtension
 
         public override void FillPointCloud()
         {
-           
-            
+
+
             this.PointCloud.Colors = new Vector3[this.PointCloud.Vectors.Length];
             for (int i = 0; i < pointCloud.Vectors.Length; i++)
             {
                this.PointCloud.Colors[i] = new Vector3(0f,1f,0f);
             }
-            
+
 
         }
         public override void FillIndexBuffer()
@@ -99,10 +100,10 @@ namespace OpenTKExtension
             }
 
         }
-      
-      
-      
-     
-   
+
+
+
+
+
     }
 }

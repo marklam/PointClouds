@@ -3,6 +3,8 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using OpenTK.Mathematics;
+
 namespace OpenTKExtension
 {
 
@@ -19,7 +21,7 @@ namespace OpenTKExtension
         float yMin;
         float yMax;
 
-        public CameraFOV(float myZMin, float myZMax, float myFOVX, float myFOVY) 
+        public CameraFOV(float myZMin, float myZMax, float myFOVX, float myFOVY)
         {
             this.zMax = myZMax;
             this.zMin = myZMin;
@@ -38,7 +40,7 @@ namespace OpenTKExtension
             this.Scale = 1f;
 
         }
-    
+
 
         public override void InitializeGL()
         {
@@ -59,8 +61,8 @@ namespace OpenTKExtension
             }
 
         }
-      
-      
+
+
         public override void Dispose()
         {
 
@@ -75,7 +77,7 @@ namespace OpenTKExtension
 
             float intermediateRectangle = (zMin + zMax)/2;
             this.PointCloud.Vectors = new Vector3[]
-             {   
+             {
                  //diagonals
                  new Vector3(0, 0, 0),
                  new Vector3(-xMax, -yMax, zMax),
@@ -106,7 +108,7 @@ namespace OpenTKExtension
 
                 new Vector3(xMax, -yMax, intermediateRectangle),
                 new Vector3(xMax, yMax, intermediateRectangle),
-                
+
                 new Vector3(xMax, yMax, intermediateRectangle),
                 new Vector3(-xMax, yMax, intermediateRectangle),
 
@@ -119,7 +121,7 @@ namespace OpenTKExtension
 
                 new Vector3(xMax, -yMax, zMax),
                 new Vector3(xMax, yMax, zMax),
-                
+
                 new Vector3(xMax, yMax, zMax),
                 new Vector3(-xMax, yMax, zMax),
 
@@ -152,8 +154,8 @@ namespace OpenTKExtension
 
 
         }
-      
-     
-   
+
+
+
     }
 }

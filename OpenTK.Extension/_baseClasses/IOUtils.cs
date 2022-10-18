@@ -1,15 +1,15 @@
 ﻿// Pogramming by
 //     Edgar Maass: (email: maass@logisel.de)
-//               
 //
-//Software used: 
+//
+//Software used:
 //    OpenGL : http://www.opengl.org
 //    OpenTK : http://www.opentk.com
 //
-// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective, 
-// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person 
+// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective,
+// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person
 // be liable for any loss, expense or damage, of any type or nature arising out of the use of, or inability to use this software or program, including, but not
-// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition. 
+// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition.
 //
 
 
@@ -24,8 +24,8 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using OpenTK;
-using System.Windows.Forms;
 using System.Linq;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -128,11 +128,11 @@ namespace OpenTKExtension
                                     indexInPointCloud++;
                                     myPCL.Add(vertex);
                                     break;
-                           
+
                             }
                         }
                     }
-            
+
                 }
             }
             catch (Exception err)
@@ -147,7 +147,7 @@ namespace OpenTKExtension
 
             Vertex vertex = new Vertex();
             vertex.Vector = new Vector3(0, 0, 0);
-           
+
             if (strArrayRead.Length > 3)
             {
                 //double dx, dy, dz;
@@ -158,10 +158,10 @@ namespace OpenTKExtension
                 vertex.Vector.Y = f;
                 float.TryParse(strArrayRead[3], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out f);
                 vertex.Vector.Z = f;
-            
+
             }
 
-           
+
             vertex.Color = new Vector3(Convert.ToSingle(System.Drawing.Color.White.R/255f), Convert.ToSingle(System.Drawing.Color.White.G/255f), Convert.ToSingle(System.Drawing.Color.White.B/255f));
             float fOutValue = 0f;
             float r,g,b, a;
@@ -170,23 +170,23 @@ namespace OpenTKExtension
             {
                 float.TryParse(strArrayRead[7], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out fOutValue);
                 a = Convert.ToByte(fOutValue * 255);
-                
+
             }
 
             if (strArrayRead.Length > 6)
             {
                 //we have vertex AND color infos
-                //double colorR = 
-                
+                //double colorR =
+
                 float.TryParse(strArrayRead[4], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out r);
-                
+
                 float.TryParse(strArrayRead[5], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out g);
-                
+
                 float.TryParse(strArrayRead[6], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out b);
-                
-                
+
+
                 vertex.Color = new Vector3(r,g,b);
-            
+
             }
 
 
@@ -198,7 +198,7 @@ namespace OpenTKExtension
 
             vector = new Vector3();
             color = new Vector3(1f, 1f, 1f);
-           
+
             if (strArrayRead.Length > 3)
             {
                 //double dx, dy, dz;
@@ -211,10 +211,10 @@ namespace OpenTKExtension
                  vector.Z = f;
             }
 
-            
+
             double fOutValue = 0f;
             float r, g, b;
-            
+
             if (strArrayRead.Length > 7)
             {
                 double.TryParse(strArrayRead[7], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out fOutValue);
@@ -225,12 +225,12 @@ namespace OpenTKExtension
             if (strArrayRead.Length > 6)
             {
                 //we have vertex AND color infos
-                //double colorR = 
+                //double colorR =
                 float.TryParse(strArrayRead[4], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out r);
                 float.TryParse(strArrayRead[5], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out g);
                 float.TryParse(strArrayRead[6], NumberStyles.Float | NumberStyles.AllowThousands, GlobalVariables.CurrentCulture, out b);
                 color = new Vector3(r, g, b);
-                
+
             }
 
 
@@ -243,8 +243,8 @@ namespace OpenTKExtension
             {
                 mtlFileName = mtlFileName.Replace('/', '\\');
                 string pathIMG = IOUtils.ExtractDirectory(mtlFileName);
-                
-                
+
+
                 using (StreamReader streamReader = new StreamReader(path + mtlFileName))
                 {
                     while (!streamReader.EndOfStream)
@@ -271,17 +271,17 @@ namespace OpenTKExtension
             return texture;
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="strArrayRead"></param>
         /// <param name="myNewModel"></param>
         /// <returns></returns>
         public static void ReadFaceLine(string[] strArrayRead, List<uint> indices, List<uint> normalIndices, List<Vector2> textures)
         {
-            
+
             try
             {
-                
+
 
                 foreach (string strElement in strArrayRead)
                 {
@@ -289,7 +289,7 @@ namespace OpenTKExtension
                     {
                         try
                         {
-                            
+
                             string[] strSubArr = strElement.Split('/');
                             int result;
                             int.TryParse(strSubArr[0], out result);
@@ -297,7 +297,7 @@ namespace OpenTKExtension
                             result -= 1;
                             indices.Add(Convert.ToUInt32(result));
 
-                          
+
                             if (strSubArr.Length > 2)
                             {
                                 int.TryParse(strSubArr[strSubArr.Length - 1], out result);
@@ -311,29 +311,29 @@ namespace OpenTKExtension
                                     //programs like Meshlab expect indices starting from one - OpenGL from 0
                                     result -= 1;
                                    // textures.Add(Convert.ToUInt32(result ));
-                                   
+
                                 }
                             }
                         }
                         catch (Exception err1)
                         {
                             System.Windows.Forms.MessageBox.Show("Error reading obj file (triangles)  in line: " + strElement + " : " + err1.Message);
-                            
+
                         }
                     }
                 }
 
-             
+
             }
             catch (Exception err)
             {
                 System.Windows.Forms.MessageBox.Show("Error reading obj file (triangles)  " + err.Message);
-               
+
             }
 
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="strArrayRead"></param>
         /// <param name="myNewModel"></param>
@@ -408,7 +408,7 @@ namespace OpenTKExtension
             {
 
                 str.Append(arrSplit[i] + @"\");
-              
+
             }
 
             dirName = str.ToString();
@@ -419,7 +419,7 @@ namespace OpenTKExtension
         public static string ExtractDirectory(string fileNameIn)
         {
             string[] arrSplit = fileNameIn.Split(new Char[] { '\\' }, 100);
-           
+
 
             System.Text.StringBuilder str = new System.Text.StringBuilder();
             for (int i = 0; i < arrSplit.GetLength(0) - 1; i++)
@@ -453,13 +453,13 @@ namespace OpenTKExtension
             string ext = arrSplit[arrSplit.GetLength(0) - 1];
 
             return ext;
-            
+
         }
         public static string ExtractFileNameWithoutExtension(string fileNameIn)
         {
             string[] arrSplit = fileNameIn.Split(new Char[] { '.' }, 100);
             string ext = arrSplit[0];
-                  
+
             return ext;
 
         }
@@ -469,7 +469,7 @@ namespace OpenTKExtension
             string fileNameShort = arrSplit[arrSplit.GetLength(0) - 1];
 
             return fileNameShort;
-            
+
         }
         public static string ExtractFileNameShortWithoutExtension(string fileNameIn)
         {
@@ -492,7 +492,7 @@ namespace OpenTKExtension
                     listInd.Add(t);
                 }
 
-                
+
 
 
             }
@@ -515,7 +515,7 @@ namespace OpenTKExtension
 
 
             }
-          
+
             return sb.ToString();
 
 
@@ -525,8 +525,8 @@ namespace OpenTKExtension
             List<triangleInd> listInd = getTriangleIndicesFromString(stringInput);
             string strReturn = reduceTriangles(listInd, factor, out count);
 
-            
-            
+
+
             return strReturn;
 
 
@@ -535,7 +535,7 @@ namespace OpenTKExtension
         {
             string[] filesUnsorted = System.IO.Directory.GetFiles(directory, extension);
 
-          
+
             var listFilesUnsorted = new List<string>(filesUnsorted);
             var listFilesSorted = listFilesUnsorted.OrderBy(x => x, new NaturalStringComparer());
             string[] files = listFilesSorted.ToArray();
@@ -560,8 +560,8 @@ namespace OpenTKExtension
         public override string ToString()
         {
             return A.ToString() + " " + B.ToString() + " " + C.ToString();
-            
+
         }
     }
-   
+
 }

@@ -8,7 +8,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -16,14 +16,14 @@ namespace OpenTKExtension
     {
         public OpenGLContext GLrender;
         public ModelViewMode ModelViewMode = ModelViewMode.ReadOnly;
-       
+
         private bool mouseClicked = false;
         ContextMenuStrip menu;
 
 
 
         string path = AppDomain.CurrentDomain.BaseDirectory;
-       
+
 
         float timeAnimation = 0.0f;
         private float animationAngle = 0;
@@ -37,16 +37,16 @@ namespace OpenTKExtension
 
         System.Timers.Timer timer = new System.Timers.Timer();
         bool animationStarted;
-       
+
         public OGLControl() : base()
         {
-         
+
             try
             {
                 if (!GLSettings.IsInitializedFromSettings)
                     GLSettings.InitFromSettings();
 
-               
+
 
                 BackColor = GLSettings.BackColor;
                 CreateMenu();
@@ -56,7 +56,7 @@ namespace OpenTKExtension
 
 
                 this.ModelViewMode = ModelViewMode.Camera;
-                
+
             }
             catch(Exception err)
             {
@@ -95,7 +95,7 @@ namespace OpenTKExtension
                 SetupViewport();
                 GL.ClearColor(Color.MidnightBlue);
 
-                
+
 
 
             }
@@ -199,7 +199,7 @@ namespace OpenTKExtension
                 this.mouseClicked = true;
                 this.GLrender.Camera.XTrans = e.X;
                 this.GLrender.Camera.YTrans = e.Y;
-             
+
 
             }
             if (e.Button == MouseButtons.Right && !this.mouseClicked)
@@ -210,7 +210,7 @@ namespace OpenTKExtension
                 this.GLrender.Camera.XRot = e.X;
                 this.GLrender.Camera.YRot = e.Y;
 
-               
+
             }
 
 
@@ -246,7 +246,7 @@ namespace OpenTKExtension
                 this.GLrender.Camera.XTrans = e.X;
                 this.GLrender.Camera.YTrans = e.Y;
 
-              
+
                 this.Refresh();
             }
 
@@ -538,7 +538,7 @@ namespace OpenTKExtension
         {
 
 
-           
+
             if (this.GLrender.RenderableObjects.Count > 0)
             {
                 RenderableObject o = null;
@@ -574,14 +574,14 @@ namespace OpenTKExtension
                 myMatrix = SVD_Float.FindTransformationMatrix(pc1, pc2, ICP_VersionUsed.Zinsser);
 
                 //myMatrix = SVD.FindTransformationMatrix_WithoutCentroids(v.ArrayVector3ToList(pc1.Vectors), v.ArrayVector3ToList(pc2.Vectors), ICP_VersionUsed.Scaling_Zinsser);
-                    
+
 
 
             }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Please load two Point Clouds first");
-                
+
             }
             return myMatrix;
         }
@@ -594,7 +594,7 @@ namespace OpenTKExtension
             {
                 RenderableObject o = this.GLrender.RenderableObjects[0];
                 PointCloud pc1 = o.PointCloud;
-                
+
 
                 myMatrix = SVD_Float.FindTransformationMatrix(pcOriginal, pc1, ICP_VersionUsed.Zinsser);
 
@@ -613,13 +613,13 @@ namespace OpenTKExtension
         public bool AlignFirstModelFromRegistratioMatrix(Matrix4 myMatrix)
         {
             //Vector3 v = new Vector3();
-          
+
             if (this.GLrender.RenderableObjects.Count > 0)
             {
                 RenderableObject o = this.GLrender.RenderableObjects[0];
                 PointCloud pc1 = o.PointCloud;
                 myMatrix.TransformPointCloud(pc1);
-                
+
 
             }
             else
@@ -640,8 +640,8 @@ namespace OpenTKExtension
                 GLrender.Dispose();
             base.Dispose(disposing);
         }
-   
-        
+
+
     }
     public enum ModelViewMode
     {

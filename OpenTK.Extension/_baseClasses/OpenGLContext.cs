@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -281,7 +282,7 @@ namespace OpenTKExtension
             ClearAll();
             Refresh();
         }
-     
+
         public void ClearSelectedModel()
         {
             this.RenderableObjects[this.SelectedModelIndex].Dispose();
@@ -336,7 +337,7 @@ namespace OpenTKExtension
             if (this.RenderableObjects.Count > 0) //&& this.GLContextInitialized
             {
 
-                //not clear why this has to be called. If the line is missing, update is not done every time. If set, PainControl is called twice in some cases for the same object... 
+                //not clear why this has to be called. If the line is missing, update is not done every time. If set, PainControl is called twice in some cases for the same object...
                 this.GLControlInstance.Invalidate();
 
             }
@@ -537,11 +538,11 @@ namespace OpenTKExtension
         }
         protected virtual void Dispose(bool disposing)
         {
-            // Check to see if Dispose has already been called. 
+            // Check to see if Dispose has already been called.
             if (!this.disposed)
             {
-                // If disposing equals true, dispose all managed 
-                // and unmanaged resources. 
+                // If disposing equals true, dispose all managed
+                // and unmanaged resources.
                 if (disposing)
                 {
 

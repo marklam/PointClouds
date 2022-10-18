@@ -7,6 +7,7 @@ using OpenTKExtension;
 using OpenTK;
 using System.Diagnostics;
 using UnitTestsOpenTK;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK
 {

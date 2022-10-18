@@ -1,7 +1,6 @@
 ﻿
 using System.Windows;
 using MIConvexHull;
-using System.Windows.Media;
 using System.Collections.Generic;
 
 namespace OpenTKExtension

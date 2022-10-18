@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using OpenTKExtension;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK.PrincipalComponentAnalysis
 {

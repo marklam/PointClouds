@@ -12,6 +12,7 @@ using System.Windows;
 using OpenTKExtension;
 using System.Runtime.InteropServices;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace PointCloudUtils
 {

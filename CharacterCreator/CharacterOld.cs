@@ -8,7 +8,8 @@ using System.IO;
 using System.Collections;
 
 using OpenTK;
-using OpenTKLib;
+using OpenTK.Mathematics;
+using OpenTKExtension;
 
 namespace CharacterCreator
 {
@@ -18,7 +19,7 @@ namespace CharacterCreator
         string name;
         //public Vector3[] Vectors;
         public List<Vector3> Vectors;
-    
+
         ArrayList base_form;
         ArrayList final_form ;
         ArrayList cache_form ;
@@ -42,10 +43,10 @@ namespace CharacterCreator
         string bodies_data_path ;//= os.path.join(data_path,"shared_bodies",self.shared_bodies_path)
         bool measures_database_exist;// = False
         string shared_morph_data_path;//= os.path.join(data_path,"shared_morphs",self.shared_morphs_filename)
-      
-     
+
+
          string bounding_box_path ;//= os.path.join(data_path,"shared_bboxes",self.shared_bbox_filename)
-      
+
            ArrayList verts_to_update ;//= set()
             ArrayList morph_data ;//= {}
             ArrayList morph_data_cache;// = {}
@@ -64,7 +65,7 @@ namespace CharacterCreator
         {
             name = myName;
             path = GLSettings.Path + GLSettings.PathCharacters;
-            
+
             morph_data_path = path + "\\" + name + "\\morphs.json"; //" + shared_measures_filename;//= os.path.join(data_path,self.obj_name,"morphs.json")
             morph_forma_path = path + "\\" + name + "\\forma.json"; //= os.path.join(data_path,self.obj_name,"forma.json")
             vertices_path = path + "\\" + name + "\\vertices.json";//= os.path.join(data_path,self.obj_name,"vertices.json")
@@ -85,8 +86,8 @@ namespace CharacterCreator
             bodies_data_path = path + "\\sharedMeasures\\" + shared_measures_filename; //= os.path.join(data_path,"shared_bodies",self.shared_bodies_path)
             shared_morph_data_path = path + "\\sharedMorphs\\" + shared_morphs_filename;//= os.path.join(data_path,"shared_morphs",self.shared_morphs_filename)
             bounding_box_path = path + "\\sharedbboxes\\" + shared_bbox_filename;//= os.path.join(data_path,"shared_bboxes",self.shared_bbox_filename)
-            
-            
+
+
         }
 
         private void DeserializeVectors()
@@ -144,8 +145,8 @@ namespace CharacterCreator
             List<float[]> lfloat = new List<float[]>();
             lfloat.Add(new float[4] {1f, 2f, 3f, 4f});
             lfloat.Add(new float[4] {1f, 2f, 3f, 4f});
-        
-            
+
+
             l.Add("Lid", lfloat);
             l.Add("Head", lfloat);
 

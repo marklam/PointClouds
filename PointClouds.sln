@@ -1,27 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96239FE9-353E-494A-8A9A-DD31CC652952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_UnitTestsOpenTK", "UnitTestsOpenTK\_UnitTestsOpenTK.csproj", "{6AF79162-C28E-4251-9DBB-5A37E58F33B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_UnitTestsOpenTK", "UnitTestsOpenTK\_UnitTestsOpenTK.csproj", "{6AF79162-C28E-4251-9DBB-5A37E58F33B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_UnitTestsRunAll", "UnitTestsRunAll\_UnitTestsRunAll.csproj", "{7A011760-0445-46F0-8409-D4F21672470A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_UnitTestsRunAll", "UnitTestsRunAll\_UnitTestsRunAll.csproj", "{7A011760-0445-46F0-8409-D4F21672470A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointCloudUtils", "PointCloudUtils\PointCloudUtils.csproj", "{0B0BDFF9-28BA-4AE1-B01D-8E3727E8A49A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointCloudUtils", "PointCloudUtils\PointCloudUtils.csproj", "{0B0BDFF9-28BA-4AE1-B01D-8E3727E8A49A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_PointCloudScannerWinForms", "PointCloudScannerWinForms\_PointCloudScannerWinForms.csproj", "{7C566216-141C-4AE6-BE9F-1482B25D40BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_PointCloudScannerWinForms", "PointCloudScannerWinForms\_PointCloudScannerWinForms.csproj", "{7C566216-141C-4AE6-BE9F-1482B25D40BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointCloudScannerWPF", "PointCloudScannerWPF\PointCloudScannerWPF.csproj", "{8E562BEB-7EEB-4BF3-B846-BDBFDBA41629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointCloudScannerWPF", "PointCloudScannerWPF\PointCloudScannerWPF.csproj", "{8E562BEB-7EEB-4BF3-B846-BDBFDBA41629}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCreator", "CharacterCreator\CharacterCreator.csproj", "{7B3AE269-1FD3-492F-BD23-D47D46F30EE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterCreator", "CharacterCreator\CharacterCreator.csproj", "{7B3AE269-1FD3-492F-BD23-D47D46F30EE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTK.Extension", "OpenTK.Extension\OpenTK.Extension.csproj", "{DF1F2330-134C-4EC6-A97C-3011D3072F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenTK.Extension", "OpenTK.Extension\OpenTK.Extension.csproj", "{DF1F2330-134C-4EC6-A97C-3011D3072F0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTKTest", "OpenTK.Test\OpenTKTest.csproj", "{546A9835-C8BC-4C43-A01C-C6603AF6674E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenTKTest", "OpenTK.Test\OpenTKTest.csproj", "{546A9835-C8BC-4C43-A01C-C6603AF6674E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_UnitTestCharacterCreator", "UnitTestCharacterCreator\_UnitTestCharacterCreator.csproj", "{27EF8AA3-B3B3-4B35-9B49-0F1AA0662AAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_UnitTestCharacterCreator", "UnitTestCharacterCreator\_UnitTestCharacterCreator.csproj", "{27EF8AA3-B3B3-4B35-9B49-0F1AA0662AAC}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "gTrackBar", "gTrackBar\gTrackBar.vbproj", "{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -300,8 +302,41 @@ Global
 		{27EF8AA3-B3B3-4B35-9B49-0F1AA0662AAC}.Release-Signed|Mixed Platforms.Build.0 = Release|Any CPU
 		{27EF8AA3-B3B3-4B35-9B49-0F1AA0662AAC}.Release-Signed|x64.ActiveCfg = Release|Any CPU
 		{27EF8AA3-B3B3-4B35-9B49-0F1AA0662AAC}.Release-Signed|x64.Build.0 = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Debug|x64.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Documentation|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Documentation|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Documentation|x64.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Documentation|x64.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Nsis|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Nsis|Any CPU.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Nsis|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Nsis|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Nsis|x64.ActiveCfg = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Nsis|x64.Build.0 = Debug|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release|x64.ActiveCfg = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release|x64.Build.0 = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release-Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release-Signed|Any CPU.Build.0 = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release-Signed|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release-Signed|Mixed Platforms.Build.0 = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release-Signed|x64.ActiveCfg = Release|Any CPU
+		{1F02F13A-871D-4CAF-AAC2-951E4FF04B00}.Release-Signed|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E6F82C7-26DB-406E-9567-124DD4B32108}
 	EndGlobalSection
 EndGlobal

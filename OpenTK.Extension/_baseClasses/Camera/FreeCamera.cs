@@ -1,10 +1,11 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.FastGLControl
 {
-  
+
     public class CFreeCamera : CAbstractCamera
     {
         public CFreeCamera()

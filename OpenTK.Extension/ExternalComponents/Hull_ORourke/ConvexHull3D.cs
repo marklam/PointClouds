@@ -10,6 +10,7 @@ using OpenTKExtension;
 using System;
 
 using System.Collections.Generic;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -30,13 +31,13 @@ namespace OpenTKExtension
         public cEdgeList Edges;
         public cFaceList Faces;
 
-        
+
         public ConvexHull3D()
         {
             Vertices = new cVertexList();
             Edges = new cEdgeList();
             Faces = new cFaceList();
-           
+
         }
         protected bool Hull()
         {
@@ -53,7 +54,7 @@ namespace OpenTKExtension
                System.Windows.Forms.MessageBox.Show("Hull Failed");
                 return false;
             }
-           
+
 
         }
         protected void InitVectors(List<Vector3> myListVectors)
@@ -73,7 +74,7 @@ namespace OpenTKExtension
             Hull();
 
             //Print();
-                
+
         }
 
         public void ReadVertices_SetIndexInPointCloud()
@@ -94,10 +95,10 @@ namespace OpenTKExtension
             } while (v != Vertices.head);
         }
 
-      
+
 
         /*---------------------------------------------------------------------
-          Print: Prints out the pointCloud and the faces.  Uses the vnum indices 
+          Print: Prints out the pointCloud and the faces.  Uses the vnum indices
           corresponding to the order in which the pointCloud were input.
           ---------------------------------------------------------------------*/
         protected void Print()
@@ -202,7 +203,7 @@ namespace OpenTKExtension
             System.Diagnostics.Debug.WriteLine("\nEdges:\tE = " + E);
             /* Edges not printed out (but easily added). */
 
-            
+
             CheckEuler(V, E, F);
         }
 
@@ -218,13 +219,13 @@ namespace OpenTKExtension
         }
 
         /*---------------------------------------------------------------------
-          floatTriangle builds the initial float triangle.  It first finds 3 
+          floatTriangle builds the initial float triangle.  It first finds 3
           noncollinear points and makes two faces out of them, in opposite order.
-          It then finds a fourth point that is not coplanar with that face.  The  
-          pointCloud are stored in the face structure in counterclockwise order so 
+          It then finds a fourth point that is not coplanar with that face.  The
+          pointCloud are stored in the face structure in counterclockwise order so
           that the volume between the face and the point is negative. Lastly, the
           3 newfaces to the fourth point are constructed and the data structures
-          are cleaned up. 
+          are cleaned up.
           ---------------------------------------------------------------------*/
         protected bool floatTriangle()
         {
@@ -276,7 +277,7 @@ namespace OpenTKExtension
 
             /* Insure that v3 will be the first added. */
             Vertices.head = v3;
-           
+
             return true;
         }
 
@@ -301,15 +302,15 @@ namespace OpenTKExtension
                     changed = AddOne(v);
                     CleanUp();
 
-                  
+
                 }
                 v = vnext;
             } while (v != Vertices.head);
         }
 
         /*---------------------------------------------------------------------
-          AddOne is passed a vertex.  It first determines all faces visible from 
-          that point.  If none are visible then the point is marked as not 
+          AddOne is passed a vertex.  It first determines all faces visible from
+          that point.  If none are visible then the point is marked as not
           onhull.  Next is a loop over edges.  If both faces adjacent to an edge
           are visible, then the edge is marked for deletion.  If just one of the
           adjacent faces is visible then a new face is constructed.
@@ -322,14 +323,14 @@ namespace OpenTKExtension
             float vol;
             bool vis = false;
 
-        
+
 
             /* Mark faces visible from p. */
             face = Faces.head;
             do
             {
                 vol = VolumeSign(face, p);
-               
+
                 if (vol < 0)
                 {
                     face.visible = VISIBLE;
@@ -364,16 +365,16 @@ namespace OpenTKExtension
         }
 
         /*---------------------------------------------------------------------
-          VolumeSign returns the sign of the volume of the tetrahedron determined 
+          VolumeSign returns the sign of the volume of the tetrahedron determined
           by f and p.  VolumeSign is +1 iff p is on the negative side of f,
-          where the positive side is determined by the rh-rule.  So the volume 
+          where the positive side is determined by the rh-rule.  So the volume
           is positive if the ccw normal to f points outside the tetrahedron.
           The  fewer-multiplications form is due to Robert Fraczkiewicz.
           ---------------------------------------------------------------------*/
         protected float VolumeSign(cFace f, cVertex p)
         {
             float vol;
-            
+
             float ax, ay, az, bx, by, bz, cx, cy, cz, dx, dy, dz;
             float bxdx, bydy, bzdz, cxdx, cydy, czdz;
 
@@ -444,7 +445,7 @@ namespace OpenTKExtension
         }
 
         /*---------------------------------------------------------------------
-          Volumed is the same as VolumeSign but computed with floats.  For 
+          Volumed is the same as VolumeSign but computed with floats.  For
           protection against overflow.
           ---------------------------------------------------------------------*/
         protected float Volumed(cFace f, cVertex p)
@@ -480,7 +481,7 @@ namespace OpenTKExtension
         }
 
         /*---------------------------------------------------------------------
-          MakeConeFace makes a new face and two new edges between the 
+          MakeConeFace makes a new face and two new edges between the
           edge and the point that are passed to it. It returns a pointer to
           the new face.
           ---------------------------------------------------------------------*/
@@ -526,8 +527,8 @@ namespace OpenTKExtension
         }
 
         /*---------------------------------------------------------------------
-          MakeCcw puts the pointCloud in the face structure in counterclock wise 
-          order.  We want to store the pointCloud in the same 
+          MakeCcw puts the pointCloud in the face structure in counterclock wise
+          order.  We want to store the pointCloud in the same
           order as in the visible face.  The third vertex is always p.
           ---------------------------------------------------------------------*/
         protected void MakeCcw(cFace f, cEdge e, cVertex p)
@@ -614,7 +615,7 @@ namespace OpenTKExtension
 
         /*---------------------------------------------------------------------
           CleanEdges runs through the edge list and cleans up the structure.
-          If there is a newface then it will put that face in place of the 
+          If there is a newface then it will put that face in place of the
           visible face and NULL out newface. It also deletes so marked edges.
           ---------------------------------------------------------------------*/
         protected void CleanEdges()
@@ -684,9 +685,9 @@ namespace OpenTKExtension
         }
 
         /*---------------------------------------------------------------------
-          CleanVertices runs through the vertex list and deletes the 
-          pointCloud that are marked as processed but are not incident to any 
-          undeleted edges. 
+          CleanVertices runs through the vertex list and deletes the
+          pointCloud that are marked as processed but are not incident to any
+          undeleted edges.
           ---------------------------------------------------------------------*/
         protected void CleanVertices()
         {
@@ -762,8 +763,8 @@ namespace OpenTKExtension
               ca1 = ( c.v.y - a.v.y );
               ba1 = ( b.v.y - a.v.y );
               ca0 = ( c.v.x - a.v.x );
-      
-              z = ba0 * ca1 - ba1 * ca0; 
+
+              z = ba0 * ca1 - ba1 * ca0;
               System.Diagnostics.Debug.WriteLine("Normz = %lf=%g\n", z,z);
               if      ( z > 0.0 )  return  1;
               else if ( z < 0.0 )  return -1;
@@ -845,7 +846,7 @@ namespace OpenTKExtension
 
             if (f != Faces.head)
                 System.Diagnostics.Debug.WriteLine("Checks: NOT convex.");
-            
+
         }
 
         /*---------------------------------------------------------------------
@@ -855,21 +856,21 @@ namespace OpenTKExtension
           ---------------------------------------------------------------------*/
         protected void CheckEuler(float V, float E, float F)
         {
-           
+
 
             if ((V - E + F) != 2)
                 System.Diagnostics.Debug.WriteLine(" Checks: V-E+F != 2\n");
-          
+
 
 
             if (F != (2 * V - 4))
                 System.Diagnostics.Debug.WriteLine(" Checks: F=" + F + " != 2V-4=" + (2 * V - 4) + "; V=" + V);
 
-         
+
 
             if ((2 * E) != (3 * F))
                 System.Diagnostics.Debug.WriteLine(" Checks: 2E=" + 2 * E + " != 3F=" + 3 * F + "; E=" + E + ", F=" + F);
-          
+
         }
 
         /*-------------------------------------------------------------------*/
@@ -912,8 +913,8 @@ namespace OpenTKExtension
 
         /*===================================================================
           These functions are used whenever the debug flag is set.
-          They print out the entire contents of each data structure.  
-          Printing is to standard error.  To grab the output in a file in the csh, 
+          They print out the entire contents of each data structure.
+          Printing is to standard error.  To grab the output in a file in the csh,
           use this:
           chull < i.file >&! o.file
           =====================================================================*/

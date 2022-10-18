@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
-    //Extensios attached to the object which folloes the "this" 
+    //Extensios attached to the object which folloes the "this"
     public static class Vector3Extension
     {
 
@@ -19,7 +20,7 @@ namespace OpenTKExtension
         public static Vector3 Clone(this Vector3 vector)
         {
             Vector3 vNew = new Vector3(vector.X, vector.Y, vector.Z);
-            
+
 
             return vNew;
 
@@ -66,8 +67,8 @@ namespace OpenTKExtension
         //    return vector;
 
         //}
-       
-     
+
+
      // converts cartesion to polar coordinates
      // result:
      // [0] = length
@@ -121,7 +122,7 @@ namespace OpenTKExtension
         //  [0] = length
         //  [1] = angle with z-axis
         //  [2] = angle of projection into x,y, plane with x-axis
-        // 
+        //
         public static Vector3 PolarToCartesian(this Vector3 v)
         {
             Vector3 cart = new Vector3();
@@ -166,14 +167,14 @@ namespace OpenTKExtension
 
             float d2 = Vector3.Dot(a, b);
             float angle =  Convert.ToSingle(Math.Atan2(d1, d2));
-            
+
 
             ////-----------------------------------
             ////alternative
             //float dot = Vector3.Dot(a, b);
             //// Divide the dot by the product of the magnitudes of the vectors
             //dot = dot / (a.Norm() * b.Norm());
-            ////Get the arc cosin of the angle, you now have your angle in radians 
+            ////Get the arc cosin of the angle, you now have your angle in radians
             //float acos = Math.Acos(dot);
             ////Multiply by 180/Mathf.PI to convert to degrees
             //float angleCheck = acos * 180 / Math.PI;
@@ -205,7 +206,7 @@ namespace OpenTKExtension
             //float dot = Vector3.Dot(a, b);
             //// Divide the dot by the product of the magnitudes of the vectors
             //dot = dot / (a.Norm() * b.Norm());
-            ////Get the arc cosin of the angle, you now have your angle in radians 
+            ////Get the arc cosin of the angle, you now have your angle in radians
             //float acos = Math.Acos(dot);
             ////Multiply by 180/Mathf.PI to convert to degrees
             //float angleCheck = acos * 180 / Math.PI;
@@ -247,15 +248,15 @@ namespace OpenTKExtension
             fSum += f * f;
             f = vector.Z - vOther.Z;
             fSum += f * f;
-            
+
 
             return Convert.ToSingle(System.Math.Sqrt(fSum));
         }
-     
+
         public static Vector3 FromFloatArray(this Vector3 v, float[] arr)
         {
-         
-            
+
+
             for (int i = 0; i < arr.Length; i++)
             {
                 v[i] = arr[i];
@@ -328,7 +329,7 @@ namespace OpenTKExtension
 
             System.Diagnostics.Debug.WriteLine(name + " : " + v[0].ToString("0.00") + " " + v[1].ToString("0.00") + " " + v[2].ToString("0.00"));
 
-         
+
         }
 
 
@@ -363,32 +364,32 @@ namespace OpenTKExtension
 
         public static Vector3 Up (this Vector3 v)
         {
-            return new Vector3(0.0f, 1.0f, 0.0f); 
+            return new Vector3(0.0f, 1.0f, 0.0f);
         }
 
         public static Vector3 Down(this Vector3 v)
         {
-            return new Vector3(0.0f, -1.0f, 0.0f); 
+            return new Vector3(0.0f, -1.0f, 0.0f);
         }
 
         public static Vector3 Forward(this Vector3 v)
         {
-            return new Vector3(0.0f, 0.0f, -1.0f); 
+            return new Vector3(0.0f, 0.0f, -1.0f);
         }
 
         public static Vector3 Backward(this Vector3 v)
         {
-            return new Vector3(0.0f, 0.0f, 1.0f); 
+            return new Vector3(0.0f, 0.0f, 1.0f);
         }
 
         public static Vector3 Left(this Vector3 v)
         {
-            return new Vector3(-1.0f, 0.0f, 0.0f); 
+            return new Vector3(-1.0f, 0.0f, 0.0f);
         }
 
         public static Vector3 Right(this Vector3 v)
         {
-            return new Vector3(1.0f, 0.0f, 0.0f); 
+            return new Vector3(1.0f, 0.0f, 0.0f);
         }
 
         public static float distance(this Vector3 v, Vector3 v1, Vector3 v2, string axis)
@@ -448,7 +449,7 @@ namespace OpenTKExtension
         /// <returns></returns>
         public static float DistanceXY(this Vector3 v, Vector3 t)
         {
-            
+
             return (float)System.Math.Sqrt(DeltaSquaredXY(v, t));
         }
 
@@ -512,7 +513,7 @@ namespace OpenTKExtension
         }
 
         ///// <summary>
-        ///// Get the largest axis 
+        ///// Get the largest axis
         ///// </summary>
         ///// <returns>Largest enumerated axis</returns>
         //public static Axis LargestAxis(this Vector3 v)
@@ -526,7 +527,7 @@ namespace OpenTKExtension
 
         //}
         /// <summary>
-        /// Get the largest axis 
+        /// Get the largest axis
         /// </summary>
         /// <returns>Largest enumerated axis</returns>
         public static Axis LargestAxis(this Vector3 v)
@@ -567,7 +568,7 @@ namespace OpenTKExtension
             value = v[(int)axis];
         }
         /// <summary>
-        /// Find a series of metrics for the give Vector3 list.  
+        /// Find a series of metrics for the give Vector3 list.
         /// </summary>
         /// <returns>TRUE if metrics were calculated, FALSE if not.</returns>
         public static bool Metrics(List<Vector3> vertices, out Vector3 min, out Vector3 max, out Vector3 center, out Vector3 centroid, out Vector3 range)
@@ -587,8 +588,8 @@ namespace OpenTKExtension
             {
                 if (first_time) { min = max = vertex; first_time = false; }
 
-                min = Vector3.Min(min, vertex);
-                max = Vector3.Max(max, vertex);
+                min = Vector3.MagnitudeMin(min, vertex);
+                max = Vector3.MagnitudeMax(max, vertex);
                 centroid += vertex;
             }
             center = (max + min) / 2.0f;
@@ -661,6 +662,6 @@ namespace OpenTKExtension
             return data.ToArray();
         }
     }
-   
+
     public enum Axis { X, Y, Z };
 }

@@ -1,89 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7A011760-0445-46F0-8409-D4F21672470A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestsRunAll</RootNamespace>
-    <AssemblyName>UnitTestsRunAll</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\binExtern\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binExtern\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binExtern\OpenTK.GLControl.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="KDTree\KDTreeEricReginaTest.cs" />
-    <Compile Include="KDTree\_KDTreeComparison.cs" />
-    <Compile Include="ToDo\Nada.cs" />
-    <Compile Include="ToDo\Cuboid_ExpectedNotWorking.cs" />
-    <Compile Include="ToDo\Cuboid.cs" />
-    <Compile Include="ToDo\Bunny.cs" />
-    <Compile Include="KDTree\KDTreeKennellTestl.cs" />
-    <Compile Include="KDTree\KDTreeJeremyTest.cs" />
-    <Compile Include="KDTree\KDTreeBruteForce.cs" />
-    <Compile Include="KDTree\KDTreeBaseTest.cs" />
-    <Compile Include="Math\SVD_Test.cs" />
-    <Compile Include="Others\KDTreeAutomated.cs" />
-    <Compile Include="PCA\Bunny.cs" />
-    <Compile Include="PCA\Rectangle.cs" />
-    <Compile Include="PCA\CuboidNew.cs" />
-    <Compile Include="ICP\Cube_Performance.cs" />
-    <Compile Include="ToDo\PCA2D.cs" />
-    <Compile Include="PCA\Cuboid.cs" />
-    <Compile Include="PCA\Face.cs" />
-    <Compile Include="PCA\Person.cs" />
-    <Compile Include="ICP\TranslationSimple.cs" />
-    <Compile Include="ICP\Rotation.cs" />
-    <Compile Include="ICP\Scaling.cs" />
-    <Compile Include="ICP\Cuboid.cs" />
-    <Compile Include="ICP\FacePerformance.cs" />
-    <Compile Include="ICP\Outliers.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Triangulate\Triangulate.cs" />
+    <Compile Remove="Math\Matrix4Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenTK.Extension\OpenTK.Extension.csproj">
@@ -99,16 +23,5 @@
       <Name>_UnitTestsOpenTK</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

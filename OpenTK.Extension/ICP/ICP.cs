@@ -12,6 +12,7 @@ using System.Diagnostics;
 using OpenTK;
 using OpenTKExtension;
 using System.Linq;
+using OpenTK.Mathematics;
 
 namespace ICPLib
 {
@@ -19,7 +20,7 @@ namespace ICPLib
 
     public partial class IterativeClosestPointTransform
     {
-        
+
         #region public members
 
         public IKDTree KDTree;
@@ -62,7 +63,7 @@ namespace ICPLib
 
         public IterativeClosestPointTransform()//:base(PointerUtils.GetIntPtr(new float[3]), true, true)
         {
-           
+
             KDTree = new KDTreeKennell();
             //KDTree = new KDTreeJeremyC();
             //KDTree = new KDTreeBruteForce();
@@ -75,7 +76,7 @@ namespace ICPLib
             this.LandmarkTransform = new LandmarkTransform();
 
             this.NumberOfIterations = 0;
-            
+
 
         }
 
@@ -90,7 +91,7 @@ namespace ICPLib
 
             ICPSettings.ResetVector3ToOrigin = true;
             ICPSettings.ICPVersion = ICP_VersionUsed.Zinsser;
-            
+
         }
 
         public void Settings_Reset_GeometricObject()
@@ -194,12 +195,12 @@ namespace ICPLib
             }
             else
             {
-              
+
                 if(ICPSettings.IgnoreFarPoints)
                     myMatrix = SVD.FindTransformationMatrix_MinimumDistance(pointsSource, resultKDTree, ICPSettings.ICPVersion, this.MeanDistance).ToMatrix4();
                 else
                     myMatrix = SVD.FindTransformationMatrix(pointsSource, resultKDTree, ICPSettings.ICPVersion).ToMatrix4();
-                   
+
 
             }
             return myMatrix;
@@ -257,16 +258,16 @@ namespace ICPLib
                 else
                     PointsResultKDTree = this.KDTree.FindClosestPointCloud_Parallel(pointsSource);
 
-             
+
 
                 Matrix4 myMatrix = Helper_FindTransformationMatrix(PointsResultKDTree);
-             
-                                
+
+
                 if (myMatrix.CheckNAN())
                     return ;
 
                 //overall matrix
-                Matrix4.Mult(ref myMatrix, ref this.Matrix, out this.Matrix);
+                Matrix4.Mult(in myMatrix, in this.Matrix, out this.Matrix);
 
                 //transform points:
                 pointsTransformed = MathUtilsVTK.TransformPoints(this.PSource, Matrix);
@@ -281,7 +282,7 @@ namespace ICPLib
                 {
                     SetNewSet();
                 }
-               
+
                 this.MeanDistance = PointCloud.MeanDistance(pointsSource, PointsResultKDTree);
                 if (MeanDistance < ICPSettings.MaximumMeanDistance) //< Math.Abs(MeanDistance - oldMeanDistance) < this.MaximumMeanDistance)
                     return ;
@@ -357,8 +358,8 @@ namespace ICPLib
 
         //    }
         //}
- 
-     
+
+
         private void ResetToCenterOfMass()
         {
 
@@ -426,7 +427,7 @@ namespace ICPLib
 
                 }
 
-               
+
 
 
                 //shuffle effect - set points source to other order
@@ -478,7 +479,7 @@ namespace ICPLib
                     PointCloud.AddVector3(PointsTransformed, centroidSource);
                 }
                 Debug.WriteLine("--------****** Solution of ICP after : " + NumberOfIterations.ToString() + " iterations, Mean Distance: " + MeanDistance.ToString("0.00000000000") + " Matrix trace : " + this.Matrix.Trace.ToString("0.00") + " - points added : " + PointsAdded.ToString());
-                
+
                 //not the best solution but ...
                 PointsTransformed.SetDefaultIndices();
 
@@ -531,7 +532,7 @@ namespace ICPLib
         }
         public PointCloud AlignCloudsFromDirectory_StartFromLast(string directory, int numberOfCloudPairs)
         {
-            
+
             GlobalVariables.ResetTime();
 
             PointCloud pSource;
@@ -573,7 +574,7 @@ namespace ICPLib
                     //pTarget = PointCloud.FromObjFile(files[iteratorFile]);
                     pTarget = PointCloud.FromObjFile(files[files.Length - iteratorFile -1]);
                 }
-                
+
 
                 //pSource = PointCloud.FromObjFile(files[iteratorFile + 1]);
                 pSource = PointCloud.FromObjFile(files[files.Length - iteratorFile -2]);
@@ -609,7 +610,7 @@ namespace ICPLib
 
             PointCloud pSource;
             PointCloud pTarget = null;
-            
+
             string[] files = IOUtils.FileNamesSorted(directory, "*.obj");
             string pathResult = directory + "\\result";
 
@@ -630,7 +631,7 @@ namespace ICPLib
                     numberOfCloudsCurrent = 1;
                     numberOfCloudsResult++;
                     pTarget.ToObjFile(pathResult + "\\Result" + numberOfCloudsResult.ToString() + ".obj");
-                    
+
                 }
                 if (pTarget != null && iteratorFile < 1 )//write result - got to end - return
                 {
@@ -639,7 +640,7 @@ namespace ICPLib
                     GlobalVariables.ShowLastTimeSpan("--> Time for ICP ");
                     return pTarget;
                 }
-                if (numberOfCloudsCurrent == 1)//new pairs 
+                if (numberOfCloudsCurrent == 1)//new pairs
                 {
                     pTarget = PointCloud.FromObjFile(files[iteratorFile]);
                 }
@@ -651,7 +652,7 @@ namespace ICPLib
                 Reset_RealData();
                 pTarget = PerformICP(pSource, pTarget);
                 System.Diagnostics.Debug.WriteLine("###### ICP for point cloud: " + pSource.Name + " - points added: " + PointsAdded.ToString());
-                
+
 
             }
             GlobalVariables.ShowLastTimeSpan("--> Time for ICP ");
@@ -661,7 +662,7 @@ namespace ICPLib
         }
         public PointCloud AlignCloudsFromDirectory_StartFirst(string directory, int numberOfCloudPairs)
         {
-           
+
             GlobalVariables.ResetTime();
 
             PointCloud pSource;
@@ -697,7 +698,7 @@ namespace ICPLib
                     GlobalVariables.ShowLastTimeSpan("--> Time for ICP ");
                     return pTarget;
                 }
-                if (numberOfCloudsCurrent == 1)//new pairs 
+                if (numberOfCloudsCurrent == 1)//new pairs
                 {
                     pTarget = PointCloud.FromObjFile(files[iteratorFile]);
                 }
@@ -717,7 +718,7 @@ namespace ICPLib
             return pTarget;
 
         }
-    
+
 
     }
 

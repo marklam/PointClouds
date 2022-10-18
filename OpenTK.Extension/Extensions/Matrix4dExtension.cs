@@ -4,14 +4,14 @@
 //     Edgar Maass: (email: maass@logisel.de)
 //               Code adaption, changed to user control
 //
-//Software used: 
+//Software used:
 //    OpenGL : http://www.opengl.org
 //    OpenTK : http://www.opentk.com
 //
-// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective, 
-// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person 
+// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective,
+// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person
 // be liable for any loss, expense or damage, of any type or nature arising out of the use of, or inability to use this software or program, including, but not
-// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition. 
+// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition.
 //
 using System;
 using System.Collections.Generic;
@@ -22,16 +22,17 @@ using OpenTK;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Data;
+using OpenTK.Mathematics;
 
 
 namespace OpenTKExtension
 {
-    //Extensios attached to the object which folloes the "this" 
+    //Extensios attached to the object which folloes the "this"
     public static class Matrix4dExtension
     {
         public static void Print(this Matrix4d m, string name)
         {
-            
+
             System.Diagnostics.Debug.WriteLine(name);
 
 
@@ -109,9 +110,9 @@ namespace OpenTKExtension
 
             for (int i = 0; i < pc.Vectors.Length; i++)
             {
-                pc.Vectors[i] = matrix.TransformVector(pc.Vectors[i]);               
+                pc.Vectors[i] = matrix.TransformVector(pc.Vectors[i]);
             }
-            
+
         }
         public static void TransformVectorList(this Matrix4d matrix, List<Vector3> vectors)
         {
@@ -122,7 +123,7 @@ namespace OpenTKExtension
             {
                 vectors[i] = matrix.TransformVector(vectors[i]);
             }
-            
+
         }
         public static void TransformVectors(this Matrix4d matrix, Vector3[] vectors)
         {
@@ -135,7 +136,7 @@ namespace OpenTKExtension
             }
 
         }
-     
+
         public static double[] TransformPointdouble(double[] pointSource, double[,] matrix)
         {
             double[] pointReturn = new double[3];
@@ -211,7 +212,7 @@ namespace OpenTKExtension
             {
                 trace -= EV[i];
             }
-           
+
 
             return trace;
 
@@ -223,7 +224,7 @@ namespace OpenTKExtension
             {
                 for (int j = 0; j < 4; j++)
                     sum += Math.Abs(mat4d[i,j]);
-                
+
             }
 
 
@@ -279,7 +280,7 @@ namespace OpenTKExtension
                 thetaZ = 0;
             }
             Vector3d v = new Vector3d(thetaX, thetaY, thetaZ);
-            
+
             for(int i = 0; i < 3; i++)
             {
                 v[i] = Math.Abs(v[i]);
@@ -289,7 +290,7 @@ namespace OpenTKExtension
                     v[i] -= 1;
 
             }
-            
+
             return v;
 
         }
@@ -343,7 +344,7 @@ namespace OpenTKExtension
             matrix[0, 3] = x;
             matrix[1, 3] = y;
             matrix[2, 3] = z;
-            Matrix4d.Mult(ref mat, ref matrix, out mat);
+            Matrix4d.Mult(in mat, in matrix, out mat);
 
         }
         public static void Rotate(this Matrix4d mat, double angle, double x, double y, double z)
@@ -394,7 +395,7 @@ namespace OpenTKExtension
             matrix[1, 2] = (yz - wx) * 2;
             matrix[2, 2] = zz * 2 + s;
 
-            Matrix4d.Mult(ref mat, ref matrix, out mat);
+            Matrix4d.Mult(in mat, in matrix, out mat);
 
         }
         public static void Scale(this Matrix4d mat, double x, double y, double z)
@@ -410,7 +411,7 @@ namespace OpenTKExtension
             matrix[1, 1] = y;
             matrix[2, 2] = z;
 
-            Matrix4d.Mult(ref mat, ref matrix, out mat);
+            Matrix4d.Mult(in mat, in matrix, out mat);
 
         }
         /// <summary>Transform a direction vector by the given Matrix
@@ -544,7 +545,7 @@ namespace OpenTKExtension
             StringBuilder sb = new StringBuilder();
 
             List<string> lines = new List<string>();
-                        
+
             for (int i = 0; i < 4; ++i)
             {
                 string line = string.Empty;
@@ -600,6 +601,6 @@ namespace OpenTKExtension
             return myMatrix;
         }
 
-  
+
     }
 }

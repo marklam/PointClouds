@@ -10,6 +10,8 @@ using OpenTK;
 using OpenTKExtension;
 using Newtonsoft.Json;
 using System.Linq;
+using OpenTK.Mathematics;
+
 namespace CharacterCreator
 {
     public class morph_engine

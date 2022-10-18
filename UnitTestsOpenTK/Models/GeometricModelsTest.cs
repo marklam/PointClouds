@@ -6,6 +6,7 @@ using System.Drawing;
 
 using OpenTKExtension;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace UnitTestsOpenTK.Models
 {

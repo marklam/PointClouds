@@ -4,13 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
-using System.Windows.Media;
 using System.Diagnostics;
 using OpenTK;
 using System.Linq;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -29,8 +28,8 @@ namespace OpenTKExtension
 
 
             PointCloud pcResult = new PointCloud();
-           
-            
+
+
             VertexKDTree[] resultArray = new VertexKDTree[source.Count];
             VertexKDTree[] outliers = new VertexKDTree[source.Count];
 
@@ -39,7 +38,7 @@ namespace OpenTKExtension
 
                 List<Vector3> listV = new List<Vector3>();
                 List<Vector3> listC = new List<Vector3>();
-                
+
 
 
                 //1. mean distance of one point to his next "numberOfNeighbours" neighbours - stored in the "distances" array
@@ -56,9 +55,9 @@ namespace OpenTKExtension
                     distances[i] = (distSum / (listResult.Count - 1));
 
                 }
-                //2. calculate the mean distance of ALL points 
+                //2. calculate the mean distance of ALL points
 
-                
+
 
                 for (int i = 0; i < distances.Length; ++i)
                 {
@@ -67,7 +66,7 @@ namespace OpenTKExtension
                 meanDistance /= distances.Length;
 
                 //3. calculate the deviation of each data point from the mean, and square the result of each
-               
+
                 for (int i = 0; i < distances.Length; i++)
                 {
                     float dev = distances[i] - meanDistance;
@@ -114,11 +113,11 @@ namespace OpenTKExtension
 
             try
             {
-                
+
 
                 List<Vector3> listV = new List<Vector3>();
                 List<Vector3> listC = new List<Vector3>();
-               
+
                 //2. distance threshold: deviation plus the overall mean distance
                 float distanceThreshold = meanDistance + standardDeviation;
 
@@ -150,7 +149,7 @@ namespace OpenTKExtension
                         listV.Add(resultArray[i].Vector);
                         listC.Add(resultArray[i].Color);
                     }
-                  
+
                 }
 
                 pcResult.Vectors = listV.ToArray();

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using OpenTK.Extension;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenGLUnitTests
 {

@@ -4,14 +4,14 @@
 //     Edgar Maass: (email: maass@logisel.de)
 //               Code adaption, changed to user control
 //
-//Software used: 
+//Software used:
 //    OpenGL : http://www.opengl.org
 //    OpenTK : http://www.opentk.com
 //
-// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective, 
-// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person 
+// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective,
+// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person
 // be liable for any loss, expense or damage, of any type or nature arising out of the use of, or inability to use this software or program, including, but not
-// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition. 
+// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition.
 //
 
 
@@ -26,10 +26,11 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
- 
+
 
     public class Triangle
     {
@@ -60,7 +61,7 @@ namespace OpenTKExtension
         {
             Triangle t = obj as Triangle;
             return Equals(t);
-           
+
         }
         public Triangle(int i, int j, int k) : this()
         {
@@ -78,7 +79,7 @@ namespace OpenTKExtension
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -87,7 +88,7 @@ namespace OpenTKExtension
         public static Triangle CreateTriangle(int i, int j, int k)
         {
             Triangle a = new Triangle();
-           
+
             a.IndVertices.Add(Convert.ToUInt32(i));
             a.IndVertices.Add(Convert.ToUInt32(j));
             a.IndVertices.Add(Convert.ToUInt32(k));
@@ -96,7 +97,7 @@ namespace OpenTKExtension
 
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -113,7 +114,7 @@ namespace OpenTKExtension
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="vi"></param>
         /// <param name="vj"></param>
@@ -122,7 +123,7 @@ namespace OpenTKExtension
         private Triangle CreateTriangle(Vertex vi, Vertex vj, Vertex vk)
         {
             Triangle a = new Triangle();
-           
+
             a.IndVertices.Add(Convert.ToUInt32(vi.Index));
             a.IndVertices.Add(Convert.ToUInt32(vj.Index));
             a.IndVertices.Add(Convert.ToUInt32(vk.Index));
@@ -152,14 +153,14 @@ namespace OpenTKExtension
             {
 
             }
-            
-            
-           
-            
+
+
+
+
         }
-   
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="areas"></param>
         public static void SortIndexVerticesWithinAllTriangles(List<Triangle> areas)
@@ -190,7 +191,7 @@ namespace OpenTKExtension
 
         //}
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -203,7 +204,7 @@ namespace OpenTKExtension
 
             }
 
-            
+
             return sb.ToString();
         }
         /// <summary>
@@ -232,7 +233,7 @@ namespace OpenTKExtension
             System.Diagnostics.Debug.WriteLine("Number of areas AFTER check: " + listTriangle.Count.ToString());
         }
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="myModel"></param>
         ///// <param name="t"></param>
@@ -240,13 +241,13 @@ namespace OpenTKExtension
         //{
 
         //    Vector3 normal = CalculateNormalForTriangle(myModel.VertexList, t);
-            
+
         //    if (normal != null)
         //    {
         //        myModel.Normals.Add(normal);
         //        int indNewNormal = myModel.Normals.Count - 1;
-                
-                
+
+
         //        t.IndNormals.Add(indNewNormal);
         //        //adds the normal to each of the pointCloud in the triangle
         //        for (int i = 0; i < t.IndVertices.Count; i++ )
@@ -254,13 +255,13 @@ namespace OpenTKExtension
         //            int indVertex = t.IndVertices[i];
         //            myModel.VertexList[indVertex].IndexNormals.Add(indNewNormal);
         //        }
-                   
+
         //    }
 
 
         //}
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pointCloud"></param>
         /// <param name="t"></param>
@@ -294,10 +295,10 @@ namespace OpenTKExtension
             //    return new Vector3(0, 0, 0);
 
             //}
-            
+
             return normal;
         }
-       
+
         //public static Vector3 CalculateNormal(PointCloud myModel, Triangle t)
         //{
         //    if (t.IndNormals == null || t.IndNormals.Count == 0)
@@ -328,7 +329,7 @@ namespace OpenTKExtension
             if (float.IsInfinity(v.X) || float.IsNaN(v.X) || float.IsInfinity(v.Y) || float.IsNaN(v.Y) || float.IsInfinity(v.Z) || float.IsNaN(v.Z))
                 return false;
 
-       
+
 
             return true;
 
@@ -412,5 +413,5 @@ namespace OpenTKExtension
     }
     //}
 
- 
+
 }

@@ -2,16 +2,16 @@
  *
  *    MIConvexHull, Copyright (C) 2013 David Sehnal, Matthew Campbell
  *
- *  This library is free software; you can redistribute it and/or modify it 
- *  under the terms of  the GNU Lesser General Public License as published by 
- *  the Free Software Foundation; either version 2.1 of the License, or 
+ *  This library is free software; you can redistribute it and/or modify it
+ *  under the terms of  the GNU Lesser General Public License as published by
+ *  the Free Software Foundation; either version 2.1 of the License, or
  *  (at your option) any later version.
  *
- *  This library is distributed in the hope that it will be useful, 
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of 
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser 
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
  *  General Public License for more details.
- *  
+ *
  *****************************************************************************/
 using OpenTKExtension;
 
@@ -52,7 +52,7 @@ namespace MIConvexHull
             // Resize the arrays and lift the data.
             foreach (var p in data)
             {
-                OpenTK.Vector3 vec = new OpenTK.Vector3(p[0], p[1], p[2]);
+                OpenTK.Mathematics.Vector3 vec = new OpenTK.Mathematics.Vector3(p[0], p[1], p[2]);
 
                 float lenSq = vec.LengthSquared;
                 var v = p.ToArray<float>();

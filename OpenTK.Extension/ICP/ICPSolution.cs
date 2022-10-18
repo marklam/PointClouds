@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Windows.Media;
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace ICPLib
 {
@@ -29,7 +30,7 @@ namespace ICPLib
         }
         public override string ToString()
         {
-            string str = this.MeanDistance.ToString("0.0") + "(" + this.MeanDistanceSubset.ToString("0.0") + ")" + " : Matrix row 1: " + this.Matrix[0, 0].ToString("0.0") + ":" + this.Matrix[0, 1].ToString("0.0") + ":" + 
+            string str = this.MeanDistance.ToString("0.0") + "(" + this.MeanDistanceSubset.ToString("0.0") + ")" + " : Matrix row 1: " + this.Matrix[0, 0].ToString("0.0") + ":" + this.Matrix[0, 1].ToString("0.0") + ":" +
                 this.Matrix[0, 2].ToString("0.0") + ":" + this.Matrix[0, 3].ToString("0.0") + ":";
 
             return str;
@@ -40,7 +41,7 @@ namespace ICPLib
             {
                 if (a[i] != b[i])
                     return false;
-                
+
             }
             return true;
 
@@ -88,10 +89,10 @@ namespace ICPLib
 
         }
         public static List<int> GetRandomIndices(int maxNumber, int myNumberPoints)
-        {   
+        {
             List<int> randomIndices = RandomUtils.UniqueRandomIndices(myNumberPoints, maxNumber);
             randomIndices.Sort();
-                    
+
             return randomIndices;
         }
         public static ICPSolution SetRandomIndices(int myNumberPoints, int maxNumber, List<ICPSolution> solutionList)
@@ -100,12 +101,12 @@ namespace ICPLib
             List<int> randomIndices;
             try
             {
-                //set trial points 
+                //set trial points
                 for (i = 0; i < 1000; i++)
                 {
                     try
                     {
-                        
+
                         randomIndices = ICPSolution.GetRandomIndices(maxNumber, myNumberPoints);
                         if (ICPSolution.IndicesAreNew(randomIndices, solutionList))
                         {
@@ -159,6 +160,6 @@ namespace ICPLib
 
         }
     }
-   
-    
+
+
 }

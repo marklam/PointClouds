@@ -3,6 +3,8 @@ using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using OpenTK.Mathematics;
+
 namespace OpenTKExtension
 {
 
@@ -10,15 +12,15 @@ namespace OpenTKExtension
     {
         int width;
         int depth;
-       
+
         public Grid() : this(20, 20)
         {
-            
+
             this.Position = Vector3.Zero;
             this.Scale = 1f;
 
         }
-        public Grid(int myWidth, int mydepth) 
+        public Grid(int myWidth, int mydepth)
         {
 
             this.width = myWidth;
@@ -45,16 +47,16 @@ namespace OpenTKExtension
             }
 
         }
-      
-      
+
+
         public override void Dispose()
         {
 
             base.Dispose();
         }
 
-      
-      
+
+
         public override void FillPointCloud()
         {
 
@@ -63,7 +65,7 @@ namespace OpenTKExtension
             int count = 0;
             int width_2 = width / 2;
             int depth_2 = depth / 2;
-            
+
             for (int i = -width_2; i <= width_2; i++)
             {
                 this.PointCloud.Vectors[count++] = new Vector3(i, 0, -depth_2);
@@ -73,15 +75,15 @@ namespace OpenTKExtension
 
             }
 
-    
+
             this.PointCloud.Colors = new Vector3[this.PointCloud.Vectors.Length];
             for (int i = 0; i < this.PointCloud.Colors.Length; i++ )
             {
                 this.PointCloud.Colors[i] = new Vector3(0.5f, 0.5f, 0.5f);
-               
+
             }
 
-          
+
 
 
         }
@@ -93,12 +95,12 @@ namespace OpenTKExtension
                 this.PointCloud.Indices[0] = i;
 
             }
-          
 
-          
+
+
         }
-      
-     
-   
+
+
+
     }
 }

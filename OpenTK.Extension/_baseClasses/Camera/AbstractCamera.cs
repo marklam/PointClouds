@@ -1,17 +1,18 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.FastGLControl
 {
-  
+
 
 
     public abstract class CAbstractCamera
     {
         public Matrix4 V = Matrix4.Identity; //view matrix
         //public Matrix4 P = new Matrix4(); //projection matrix
-        
+
         //vectors
         public Vector3 Position = new Vector3();
         protected Vector3 CenterOfInterest = new Vector3();
@@ -23,7 +24,7 @@ namespace OpenTKExtension.FastGLControl
          //frustum points
         public Vector3[] farPts = new Vector3[4];
         public Vector3[] nearPts = new Vector3[4];
-        
+
 
 
 
@@ -35,11 +36,11 @@ namespace OpenTKExtension.FastGLControl
         protected float Znear;
         protected float Zfar;
         protected static Vector3 UP = new Vector3(0, 1, 0);
-       
+
         protected Vector3 right = new Vector3();
-        
+
         //Frsutum planes
-        protected CPlane[] planes = new CPlane[6]; 
+        protected CPlane[] planes = new CPlane[6];
 
         public CAbstractCamera()
         {
@@ -67,9 +68,9 @@ namespace OpenTKExtension.FastGLControl
 
         //   // P = P.PerspectiveNew(fovy, aspRatio, ZNear, ZFar);
         //    P = Matrix4.CreatePerspectiveFieldOfView(fovy, aspRatio, ZNear, ZFar);
-            
 
-           
+
+
         //}
 
         public abstract void Update();
@@ -85,7 +86,7 @@ namespace OpenTKExtension.FastGLControl
             Update();
         }
 
-      
+
 
         public void CalcFrustumPlanes()
         {
@@ -182,9 +183,9 @@ namespace OpenTKExtension.FastGLControl
             }
         }
 
-      
 
-     
+
+
         protected Matrix4 yawPitchRoll(float yaw, float pitch, float roll)
         {
             Matrix4 Result = Matrix4.Identity;
@@ -243,6 +244,6 @@ namespace OpenTKExtension.FastGLControl
         //    return Result;
         //}
     }
- 
+
 }
 

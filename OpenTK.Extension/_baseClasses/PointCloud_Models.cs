@@ -7,11 +7,12 @@ using OpenTK;
 using System.IO;
 using System.Globalization;
 using System.Drawing;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
 
-    public partial class PointCloud 
+    public partial class PointCloud
     {
         public static PointCloud CreateSomePoints()
         {
@@ -49,7 +50,7 @@ namespace OpenTKExtension
             return pc;
 
         }
-     
+
         public static PointCloud CreateCube_RandomPointsOnPlanes(float cubeSize, int numberOfRandomPoints)
         {
 
@@ -116,16 +117,16 @@ namespace OpenTKExtension
         {
             List<Vector3> points = new List<Vector3>();
             float v0 = 0f;
-           
+
             for (int i = 0; i < numberOfPoints; i++)
             {
-                
+
                 points.Add(new Vector3(0, v0, 0));
-               
+
                 points.Add(new Vector3(0, v0, u));
-                
+
                 points.Add(new Vector3(u, v0, u));
-               
+
                 points.Add(new Vector3(u, v0, 0));
 
                 v0 += v / numberOfPoints;

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {

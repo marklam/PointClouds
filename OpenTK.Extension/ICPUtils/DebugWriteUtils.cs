@@ -4,19 +4,18 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
-using System.Windows.Media;
 using System.Diagnostics;
 using OpenTK;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 namespace ICPLib
 {
     public class DebugWriteUtils
     {
-        
+
         public static void WriteTestOutput(string nameDisplayed, Matrix4 m, List<Vector3> mypointsSource, List<Vector3> myPointsTransformed, List<Vector3> myPointsTarget)
         {
             m.Print(nameDisplayed);
@@ -93,8 +92,8 @@ namespace ICPLib
                 Debug.WriteLine(i.ToString() + " : " + p1 + " :transformed: " + p2 + " :target: " + p3 + " : Distance: " + distance.ToString("0.0"));
 
             }
-            
+
         }
-    
+
     }
 }

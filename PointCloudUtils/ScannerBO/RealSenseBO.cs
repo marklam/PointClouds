@@ -12,24 +12,25 @@ using OpenTKExtension;
 using OpenTK;
 using System.Drawing;
 using System.Diagnostics;
+using OpenTK.Mathematics;
 
 namespace PointCloudUtils
 {
     public class RealsenseBO : ScannerBase
     {
-       
+
         public int NumberOfDevices;
         public FilterInfoCollection videoDevices;
         public List<VideoCaptureDevice> DevicesDepth;
         public List<VideoCaptureDevice> DevicesColor;
 
-        
+
 
         System.Windows.Forms.PictureBox pictureBoxColor;
         System.Windows.Forms.PictureBox pictureBoxDepth;
         System.Windows.Forms.PictureBox pictureBoxIR;
         System.Windows.Forms.Label cameraFpsLabel;
-        
+
         System.Windows.Forms.Control parentControl;
 
         public List<string> CameraStrings;
@@ -42,14 +43,14 @@ namespace PointCloudUtils
 
         public DisplayType DisplayType;
 
-    
+
 
 
         private Size depthFrameSize = new Size(640, 480);
         //private Size colorFrameSize = new Size(1920, 1080);
         private Size colorFrameSize = new Size(640, 480);
 
-      
+
 
         byte[] depthForImage;
         byte[] infrared;
@@ -57,7 +58,7 @@ namespace PointCloudUtils
 
         private int scannerID = 0;
         PointCloud pointCloudBase;
-        
+
         System.Timers.Timer timer = new System.Timers.Timer();
         VideoSourcePlayer videoSourcePlayerDepth;
         VideoSourcePlayer videoSourcePlayerColor;
@@ -66,16 +67,16 @@ namespace PointCloudUtils
         private Matrix3 DepthConversionMatrix;
         private Matrix3 ColorConversionMatrix;
 
-        
+
         //private Bitmap bitmapIR;
         private Bitmap bitmapIRSave;
-       
+
         private Bitmap bitmapDepthSave;
         private Bitmap bitmapColorForSave;
 
         private bool colorPendingForSave;
         private bool depthPendingForSave;
-       
+
         //private bool prepareSave;
 
         public RealsenseBO()
@@ -99,14 +100,14 @@ namespace PointCloudUtils
                 pictureBoxIR = mypictureBoxIR;
                 cameraFpsLabel = mycameraFpsLabel;
                 openGLControl = myOpenGLControl;
-               
+
 
                 GetRealSenseCameras(out DevicesDepth, out DevicesColor , out videoDevices);
                 NumberOfDevices = DevicesDepth.Count;
-                
+
 
                 SetConversionMatrices();
-                
+
             }
             catch (Exception err)
             {
@@ -132,7 +133,8 @@ namespace PointCloudUtils
                 videoSourcePlayerDepth.VideoSource = videoCaptureDepth;
 
                 //   SetFrameSize(videoCaptureDepth, this.depthFrameSize);
-                videoCaptureDepth.SourceType = VideoSourceType.Depth;
+                throw new NotImplementedException("Removed use of custom AForge build?");
+                // videoCaptureDepth.SourceType = VideoSourceType.Depth;
 
                 videoCaptureDepth.NewFrame += new AForge.Video.NewFrameEventHandler(OnNewFrameDepth);
 
@@ -234,7 +236,7 @@ namespace PointCloudUtils
                 }
             }
         }
-     
+
         void OnNewFrameColor(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
 
@@ -305,7 +307,7 @@ namespace PointCloudUtils
         }
         void OnNewFrameDepth(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
-           
+
             if (depthPendingForSave)
             {
 
@@ -316,16 +318,17 @@ namespace PointCloudUtils
 
             }
             VideoCaptureDevice videosource = sender as VideoCaptureDevice;
-            if (videosource.SourceType == VideoSourceType.Depth)
-            {
-                Bitmap bm = (Bitmap)eventArgs.Frame.Clone();
-                this.depthFrameSize = bm.Size;
-                GenerateDepthMetaData(bm);
-            }
+            throw new NotImplementedException("Removed use of custom AForge build?");
+            //if (videosource.SourceType == VideoSourceType.Depth)
+            //{
+            //    Bitmap bm = (Bitmap)eventArgs.Frame.Clone();
+            //    this.depthFrameSize = bm.Size;
+            //    GenerateDepthMetaData(bm);
+            //}
 
             switch (this.DisplayType)
             {
-                    
+
                 case DisplayType.Color:
                     {
 
@@ -334,24 +337,26 @@ namespace PointCloudUtils
                 case DisplayType.Depth:
                     {
                         VideoCaptureDevice source = sender as VideoCaptureDevice;
-                        if (source.SourceType == VideoSourceType.Depth)
-                        {
+                        throw new NotImplementedException("Removed use of custom AForge build?");
+                        //if (source.SourceType == VideoSourceType.Depth)
+                        //{
 
-                            this.pictureBoxDepth.Image = GenerateDepthImage((Bitmap)eventArgs.Frame); 
-                           
-                        }
+                        //    this.pictureBoxDepth.Image = GenerateDepthImage((Bitmap)eventArgs.Frame);
+
+                        //}
                         break;
                     }
                 case DisplayType.IR:
                     {
                         VideoCaptureDevice source = sender as VideoCaptureDevice;
-                        if (source.SourceType == VideoSourceType.Infrared)
-                        {
+                        throw new NotImplementedException("Removed use of custom AForge build?");
+                        //if (source.SourceType == VideoSourceType.Infrared)
+                        //{
 
-                            pictureBoxIR.Image = GenerateIRImage((Bitmap)eventArgs.Frame);
+                        //    pictureBoxIR.Image = GenerateIRImage((Bitmap)eventArgs.Frame);
 
-                         
-                        }
+
+                        //}
                         break;
                     }
                 case DisplayType.OpenGL:
@@ -363,34 +368,36 @@ namespace PointCloudUtils
                             {
                                 openGLCounter = 0;
                                 VideoCaptureDevice source = sender as VideoCaptureDevice;
-                                if (source.SourceType == VideoSourceType.Depth)
-                                {
-                                    Bitmap bm = (Bitmap)eventArgs.Frame.Clone();
-                                    this.depthFrameSize = bm.Size;
-                                    GenerateDepthMetaData(bm);
-                                  
-                                    
-                                    try
-                                    {
-                                        
-                                        this.parentControl.BeginInvoke(new UpdateShowFormOpenGLDelegate(UpdateOpenGLControl));
-                                    }
+                                throw new NotImplementedException("Removed use of custom AForge build?");
 
-                                    catch
-                                    {
-                                        System.Diagnostics.Debug.WriteLine("Error in Begin Invoke");
-                                    }
-                                }
-                               
+                                //if (source.SourceType == VideoSourceType.Depth)
+                                //{
+                                //    Bitmap bm = (Bitmap)eventArgs.Frame.Clone();
+                                //    this.depthFrameSize = bm.Size;
+                                //    GenerateDepthMetaData(bm);
+
+
+                                //    try
+                                //    {
+
+                                //        this.parentControl.BeginInvoke(new UpdateShowFormOpenGLDelegate(UpdateOpenGLControl));
+                                //    }
+
+                                //    catch
+                                //    {
+                                //        System.Diagnostics.Debug.WriteLine("Error in Begin Invoke");
+                                //    }
+                                //}
+
                             }
                         }
-                        
-                     
-                   
+
+
+
                         break;
                     }
             }
-          
+
 
         }
         public override PointCloudRenderable ToPointCloudRenderable(bool resizeTo1)
@@ -423,7 +430,7 @@ namespace PointCloudUtils
             for ( int i = 0; i < this.pointCloudBase.Vectors.Length; i++ )
             {
                 float depthVal = Convert.ToUInt16(this.pointCloudBase.Vectors[i].Z);
-                
+
                 float r= 0 , g = 0, b = 0;
 
                 if(depthVal >= deltaZ)
@@ -455,7 +462,7 @@ namespace PointCloudUtils
                 {
                     r = 0;
                     g = 1;
-                    b = (depthVal - iVal * deltaZ) / deltaSmall; 
+                    b = (depthVal - iVal * deltaZ) / deltaSmall;
 
                 }
                 iVal = 4;// cyan to blue
@@ -474,14 +481,14 @@ namespace PointCloudUtils
                     b = (depthVal - iVal * deltaZ) / deltaSmall;
 
                 }
-              
+
                 Vector3 c = new Vector3(r, g, b);
                 this.pointCloudBase.Colors[i] = c;
-               
+
 
             }
 
-         
+
         }
         private void UnusedGenerate_Depth(Bitmap bm)
         {
@@ -508,34 +515,34 @@ namespace PointCloudUtils
                     int depthIndex = (iy * DepthMetaData.XDepthMaxRealSense) + ix;
                     if (depth != 0)
                     {
-                        
+
                         Vector3 v = ConvertDepthTomm(ix, iy, depth);
                         this.DepthMetaData.Vectors.Add(v);
                         DepthMetaData.FrameData[depthIndex] = Convert.ToUInt16(v.Z);
-                       
+
                     }
 
-                   
+
                 }
             }
             lockBitmap.UnlockBits();
             //---------------
-            
-           
 
-            
+
+
+
         }
-    
+
         private void GenerateDepthMetaData(Bitmap bm)
         {
             DepthMetaData = new DepthMetaData();
             this.DepthMetaData.Vectors = new List<Vector3>();
-           
-          
+
+
             LockBitmap lockBitmap = new LockBitmap(bm);
             lockBitmap.LockBits();
             byte[] pixelData = lockBitmap.Pixels;
-            
+
             infrared = new byte[bm.Width * bm.Height];
             depthForImage = new byte[bm.Width * bm.Height];
             int indexInfrared = 0;
@@ -552,10 +559,10 @@ namespace PointCloudUtils
                 {
                     int pixel24 = step24 + 3 * ix;
                     ushort depth = BitConverter.ToUInt16(pixelData, pixel24);
-                    
+
                     try
                     {
-                       
+
                         byte[] pixel = new byte[3];
                         pixel[0] = pixelData[pixel24];
                         pixel[1] = pixelData[pixel24 + 1];
@@ -565,19 +572,19 @@ namespace PointCloudUtils
                         listPixels.Add(pixel);
 
                         infrared[indexInfrared] = pixelData[pixel24 + 2];
-                      
-                        
+
+
                         if (depth != 0)
                         {
                             //Vector3 vTest = new Vector3(ix, iy, depth);
-                            
+
                             Vector3 v = ConvertDepthTomm(ix, -iy, depth);
 
                             this.DepthMetaData.Vectors.Add(v);
                             depthForImage[indexInfrared] = (byte)v.Z;
                             int depthIndex = (iy * DepthMetaData.XDepthMaxRealSense) + ix;
                             DepthMetaData.FrameData[depthIndex] = Convert.ToUInt16(v.Z);
-                       
+
 
                         }
                     }
@@ -587,7 +594,7 @@ namespace PointCloudUtils
                     }
                     indexInfrared++;
 
-                
+
                 }
             }
 
@@ -609,7 +616,7 @@ namespace PointCloudUtils
             HelperInterpolation_Iteration1(DepthMetaData.XDepthMaxRealSense, DepthMetaData.YDepthMaxRealSense);
 
 
-          
+
 
             numberOfCutPointsArray[iFrameInterpolation - 1] = numberOfCutPoints;
             interpolationList.Add(this.DepthMetaData.FrameData);
@@ -637,10 +644,10 @@ namespace PointCloudUtils
             {
                 float x = depth * (DepthConversionMatrix.M11 * ix + DepthConversionMatrix.M13);
                 float y = depth * (DepthConversionMatrix.M22 * iy + DepthConversionMatrix.M23);
-               
+
                 v = new Vector3(x, y, depth);
-                
-                
+
+
             }
             return v;
 
@@ -716,7 +723,7 @@ namespace PointCloudUtils
             set
             {
                 scannerID = value;
-            
+
             }
         }
         //public VideoSourcePlayer VideoPlayer
@@ -730,7 +737,7 @@ namespace PointCloudUtils
         //        this.videoSourcePlayerDepth = value;
         //    }
         //}
-       
+
 
         private bool SaveBitmaps()
         {
@@ -782,7 +789,7 @@ namespace PointCloudUtils
                     //UtilsPointCloudIO.ToObjFile(pc, PathModels, ImageExtensions.DateTimeString() + "PointCloud_" + this.scannerID.ToString() + ".obj");
                 //UtilsPointCloudIO.Write_OBJ_Test(pc, pcTest, pathModels, "ObjTest" + this.RealSenseCameraNumber.ToString() + "_" + DateTime.Now.ToFileTimeUtc() + ".obj");
 
-                
+
 
             }
             else
@@ -803,7 +810,7 @@ namespace PointCloudUtils
             //depthDevices[0].DisplayCrossbarPropertyPage(hwnd);
 
             VideoCaptureDevice deD = DevicesDepth[0];
-           
+
             System.Reflection.PropertyInfo[] infos = deD.GetType().GetProperties();
 
 
@@ -847,7 +854,7 @@ namespace PointCloudUtils
             ColorConversionMatrix.M22 = 0.001775862f;
             ColorConversionMatrix.M23 = -00293146f;
             ColorConversionMatrix.M33 = 1;
-            
+
 
         }
         //public void Start3DShow()

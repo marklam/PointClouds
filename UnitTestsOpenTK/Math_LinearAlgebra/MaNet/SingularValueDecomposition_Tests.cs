@@ -5,6 +5,7 @@
 
 using NUnit.Framework;
 using OpenTK;
+using OpenTK.Mathematics;
 using OpenTKExtension;
 
 namespace UnitTestsOpenTK.LinearAlgebra

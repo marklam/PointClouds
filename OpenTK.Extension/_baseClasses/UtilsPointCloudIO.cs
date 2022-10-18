@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
 using System.Windows;
 using OpenTK;
 using System.Globalization;
 using System.IO;
-
+using OpenTK.Mathematics;
+using System.Windows.Media;
 
 namespace OpenTKExtension
 {
@@ -49,7 +47,7 @@ namespace OpenTKExtension
 
             int numberOfDepthPointsNonZero = -1;
 
-       
+
 
             try
             {
@@ -90,8 +88,8 @@ namespace OpenTKExtension
                 System.Windows.Forms.MessageBox.Show("Read_PLY: Read error - e.g. cannot be found:  " + fileName + ": " + err.Message);
             }
 
-            
-          
+
+
         }
         ///// <summary>
         ///// Save mesh in ASCII .PLY file with per-vertex color
@@ -103,7 +101,7 @@ namespace OpenTKExtension
         ///// <param name="outputColor">Set this true to write out the surface color to the file when it has been captured.</param>
         //public static void ToPlyNew(PointCloud pc, string path, string fileName)
         //{
-         
+
 
         //    //var vertices = mesh.GetVertices();
         //    //var indices = mesh.GetTriangleIndexes();
@@ -132,7 +130,7 @@ namespace OpenTKExtension
         //    lines.Add("property uchar red");
         //    lines.Add("property uchar green");
         //    lines.Add("property uchar blue");
-           
+
 
         //    lines.Add("element face 0 ";
         //    lines.Add("property list uchar int vertex_index");
@@ -213,7 +211,7 @@ namespace OpenTKExtension
             lines.Add("end_header");
 
 
-         
+
             if (pc.Colors != null && pc.Colors.GetLength(0) == pc.Vectors.Length)
             {
 
@@ -230,11 +228,11 @@ namespace OpenTKExtension
                         // 255F
                         color = Convert.ToUInt32(colorVal[0]*255).ToString(CultureInfo) + " " + Convert.ToUInt32(colorVal[1]*255).ToString(CultureInfo) + " " + Convert.ToUInt32(colorVal[2]*255).ToString(CultureInfo) + " ";
                         //color = colorVal[0].ToString(CultureInfo) + " " + colorVal[1].ToString(CultureInfo) + " " + colorVal[2].ToString(CultureInfo) + " 1" ;
-                   
+
                     }
                     //string color = pixels[displayIndex].ToString() + " " + pixels[displayIndex + 1].ToString() + " " + pixels[displayIndex + 2].ToString() + " " + pixels[displayIndex + 3].ToString();
-                    
-                   
+
+
                     //string color = pixels[displayIndex].ToString() + " " + pixels[displayIndex + 1].ToString() + " " + pixels[displayIndex + 2].ToString() + " " + pixels[displayIndex + 3].ToString();
                     lines.Add(coordinate + " " + color);
 
@@ -255,7 +253,7 @@ namespace OpenTKExtension
                 }
 
 
-          
+
 
             lines[3] = "element vertex " + pc.Vectors.Length.ToString();
             System.IO.StreamWriter writer = new System.IO.StreamWriter(path + "\\" + fileName);
@@ -293,7 +291,7 @@ namespace OpenTKExtension
             lines.Add("property float  x");
             lines.Add("property float y");
             lines.Add("property float z");
-        
+
             //lines.Add("property uchar red");
             //lines.Add("property uchar green");
             //lines.Add("property uchar blue");
@@ -329,7 +327,7 @@ namespace OpenTKExtension
             lines[3] = "element vertex " + iIndex.ToString();
 
             System.IO.File.WriteAllLines(path + "\\" + fileName, lines);
-            
+
             return true;
 
         }
@@ -341,7 +339,7 @@ namespace OpenTKExtension
                 lines[i] = listOfPoints[i].X.ToString("0.0", CultureInfo) + " " + listOfPoints[i].Y.ToString("0.0", CultureInfo) + " " + listOfPoints[i].Z.ToString("0.0", CultureInfo);
 
             }
-                 
+
             System.IO.File.WriteAllLines(path + "\\" + fileNameShort, lines);
 
             return true;
@@ -364,7 +362,7 @@ namespace OpenTKExtension
             return true;
 
         }
-    
+
         public static List<Vector3> FromXYZ_Vectors(string fileName)
         {
             List<Vector3> listOfPoints = new List<Vector3>();
@@ -481,10 +479,10 @@ namespace OpenTKExtension
         //    {
 
         //        Vector3 v = listVector3[i];
-              
+
         //        string coordinate = v.X.ToString(CultureInfo) + " " + v.Y.ToString(CultureInfo) + " " + v.Z.ToString(CultureInfo);
         //        string color = string.Empty;
-              
+
         //        //string color = pixels[displayIndex].ToString() + " " + pixels[displayIndex + 1].ToString() + " " + pixels[displayIndex + 2].ToString() + " " + pixels[displayIndex + 3].ToString();
         //        lines.Add("v " + coordinate + " " + color);
 
@@ -555,12 +553,12 @@ namespace OpenTKExtension
         public static bool ToObjFile_ColorInVertex(PointCloud pc, string path, string fileName)
         {
             return ToObjFile_ColorInVertex(pc, path + "\\" + fileName);
-       
+
 
         }
-   
 
-      
+
+
           /// <summary>
         /// write ply file from depth data and colorInfoPixels (color info)
         /// </summary>
@@ -675,7 +673,7 @@ namespace OpenTKExtension
 
             }
 
-           
+
 
             //System.Drawing.Image im = pc.Texture.BitmapTexture;
 
@@ -684,7 +682,7 @@ namespace OpenTKExtension
             fileName = IOUtils.ExtractFileNameWithoutExtension(fileName);
             string fileNameMTL = fileName + "_Materials.mtl";
             fileName = fileName + "_Texture.png";
-            
+
 
             StringBuilder sb = new StringBuilder();
 
@@ -704,12 +702,12 @@ namespace OpenTKExtension
                 string[] linesTexture = new string[] {"map_Kd " + fileName};
                 System.IO.File.WriteAllLines(path + fileNameMTL, linesTexture);
 
-               
+
                 pc.Texture.BitmapTexture.SaveImage(path + fileName);
                 //pc.InitUVsFromVectors();
                 //pc.Texture.To
             }
-          
+
 
             lines.Add("####");
             lines.Add("#");
@@ -753,7 +751,7 @@ namespace OpenTKExtension
 
                     lines.Add("vt " + coordinate);
 
-                    
+
                 }
 
             }
@@ -802,7 +800,7 @@ namespace OpenTKExtension
         //    System.IO.File.WriteAllLines(fileNameWithPath, lines);
         //    return true;
         //}
-   
+
         /// <summary>
         /// write ply file from depth data and colorInfoPixels (color info)
         /// </summary>
@@ -860,7 +858,7 @@ namespace OpenTKExtension
 
                     Vector3 v = pc.Vectors[i];
                     Vector3 vTest = pcTest.Vectors[i];
-                    
+
 
                     string coordinate = v.X.ToString(CultureInfo) + " " + v.Y.ToString(CultureInfo) + " " + v.Z.ToString(CultureInfo);
                     string coordinate1 = vTest.X.ToString(CultureInfo) + " " + vTest.Y.ToString(CultureInfo) + " " + vTest.Z.ToString(CultureInfo);
@@ -970,7 +968,7 @@ namespace OpenTKExtension
                 string[] lines = System.IO.File.ReadAllLines(fileName);
 
                 //ignore the comment lines
-                
+
                 for (i = 0; i < lines.Length; i++)
                 {
                     if (!lines[i].Contains('#'))
@@ -983,7 +981,7 @@ namespace OpenTKExtension
 
                 for ( i = startIndex + 1; i < lines.GetLength(0); i++)
                 {
-                    
+
                     string[] arrStr1 = lines[i].Split(new Char[] { ' ' });
                     if (lines[i].Contains('#') || arrStr1.Length < 4)
                     {
@@ -1028,8 +1026,8 @@ namespace OpenTKExtension
                             }
 
                         }
-                    }                    
-                   
+                    }
+
                 }
             }
             catch (Exception err)
@@ -1273,7 +1271,7 @@ namespace OpenTKExtension
         }
         public static PointCloud FromObjFile(string fileOBJ)
         {
-            
+
             PointCloud pc = new PointCloud();
             PointCloudFromObjectFile(pc, fileOBJ);
 
@@ -1281,7 +1279,7 @@ namespace OpenTKExtension
 
         }
         /// <summary>
-     
+
         /// write obj file from depth data and colorInfoPixels (color info)
         /// </summary>
         /// <param name="colorInfoPixels"></param>
@@ -1296,9 +1294,9 @@ namespace OpenTKExtension
 
 
         //    List<string> lines = new List<string>();
-          
+
         //    lines.Add("# Number of vectors: " + depthData.Count.ToString());
-        
+
 
         //    int iIndex = 0;
 

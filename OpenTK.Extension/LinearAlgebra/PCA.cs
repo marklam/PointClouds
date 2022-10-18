@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -11,9 +12,9 @@ namespace OpenTKExtension
     public class PCA
     {
         public IKDTree KDTree;
-       
+
         public Matrix3 U;
-        
+
 
         public Matrix3 VT;
         public Matrix3 V;
@@ -23,11 +24,11 @@ namespace OpenTKExtension
         public Matrix3 U_NotNormalized;
         public Vector3 EV_NotNormalized;
 
-     
+
         List<Vector3> listTransformed;
         public Vector3 Centroid;
 
-       
+
         public float MeanDistance;
         public Matrix4 Matrix;
 
@@ -35,7 +36,7 @@ namespace OpenTKExtension
         PointCloud pcTargetCentered;
         PointCloud pcResultCentered;
 
-      
+
         PointCloud pcResult = null;
         PointCloud pcResultBest = null;
         float bestResultMeanDistance = float.MaxValue;
@@ -45,15 +46,15 @@ namespace OpenTKExtension
         public float ThresholdConvergence = 1e-4f;
 
         public bool AxesRotateEffect = true;
-       
+
         public PCA()
         {
-            KDTree = new KDTreeKennell(); 
-          
+            KDTree = new KDTreeKennell();
+
         }
         public static PointCloud RotateToOriginAxes(PointCloud mypointCloudSource)
         {
-           
+
 
             PCA pca = new PCA();
             pca.PCA_OfPointCloud(mypointCloudSource);
@@ -101,7 +102,7 @@ namespace OpenTKExtension
 
             Matrix4d myMatrix4d = SVD.FindTransformationMatrix_WithoutCentroids(sourceAxes, targetAxes, ICP_VersionUsed.Umeyama);
 
-          
+
             //CheckPCA(myMatrix4d, sourceAxes, targetAxes);
 
 
@@ -112,7 +113,7 @@ namespace OpenTKExtension
             pcTreeResult = KDTree.FindClosestPointCloud_Parallel(myResultPC);
             meanDistance = KDTree.MeanDistance;
 
-          
+
             //PointCloud myPointCloudTargetTemp = kdtree.FindNearest_Rednaxela(ref myPointsResultTemp, pointCloudTargetCentered, -1);
 
 
@@ -128,7 +129,7 @@ namespace OpenTKExtension
 
 
             pcResult = myResultPC;
-           
+
 
         }
         /// <summary>
@@ -213,15 +214,15 @@ namespace OpenTKExtension
 
         }
         /// <summary>
-        /// sets the result point cloud - resp. pointCloudResultBest 
+        /// sets the result point cloud - resp. pointCloudResultBest
         /// </summary>
         /// <param name="mypointCloudSource"></param>
         /// <returns></returns>
         private float SVD_Iteration(PointCloud mypointCloudSource)
         {
-            
-            float meanDistance = float.MaxValue; 
-            
+
+            float meanDistance = float.MaxValue;
+
 
             pcSourceCentered = CalculatePCA_Internal(mypointCloudSource);
 
@@ -234,7 +235,7 @@ namespace OpenTKExtension
             //leads to a lot of iterations
             if (AxesRotateEffect)
             {
-                //additionally try other solutions: Invert all axes 
+                //additionally try other solutions: Invert all axes
                 if (meanDistance > ThresholdConvergence)
                 {
 
@@ -255,9 +256,9 @@ namespace OpenTKExtension
 
                     }
                 }
-                
+
             }
-            Matrix4.Mult(ref myMatrixBestResult, ref this.Matrix, out this.Matrix);
+            Matrix4.Mult(in myMatrixBestResult, in this.Matrix, out this.Matrix);
 
             //pointCloudResultBest
 
@@ -281,7 +282,7 @@ namespace OpenTKExtension
         }
         public PointCloud AlignPointClouds_SVD(PointCloud pointCloudSource, PointCloud pointCloudTarget)
         {
-            
+
             try
             {
                 if (pointCloudSource == null || pointCloudTarget == null || pointCloudSource.Count == 0 || pointCloudTarget.Count == 0)
@@ -306,7 +307,7 @@ namespace OpenTKExtension
                     //myPointCloudIteration = pcResultBest;
                     if (meanDistance < ThresholdConvergence)
                         break;
-                    
+
                 }
 
                 //final check:
@@ -316,14 +317,14 @@ namespace OpenTKExtension
                 pcTreeResult = KDTree.FindClosestPointCloud_Parallel(pcResult);
                 MeanDistance = KDTree.MeanDistance;
 
-            
+
                 pcTreeResult = KDTree.FindClosestPointCloud_Parallel(pcResultBest);
                 MeanDistance = KDTree.MeanDistance;
 
                 //"Shuffle" effect - the target points are in other order after kdtree search:
                 //The mean distance calculated again, as check (was calculated before in the kdTree routine)
 
-               
+
                 System.Diagnostics.Debug.WriteLine("-->>  TO CHECK: PCA (SVD) - Final Mean Distance : " + MeanDistance.ToString("G"));
 
                 //MeanDistance = PointCloud.MeanDistance(pointCloudResult, pointCloudTarget);
@@ -333,8 +334,8 @@ namespace OpenTKExtension
                 pcResult = Matrix.TransformPoints(pointCloudSource);
                 pcResultCentered = CalculatePCA_Internal(pcResult);
 
-              
-                
+
+
             }
             catch(Exception err)
             {
@@ -419,7 +420,7 @@ namespace OpenTKExtension
             return mypointCloudCentered;
 
         }
-       
+
         /// <summary>
         /// projected result is in PointResult0, etc.
         /// </summary>
@@ -436,7 +437,7 @@ namespace OpenTKExtension
             //second object:
             //-----------
             pcTargetCentered = CalculatePCA_Internal(pointCloudTarget);
-           
+
             //kdtree = new KDTreeJeremyC();
             KDTree = new KDTreeKennell();
 
@@ -448,9 +449,9 @@ namespace OpenTKExtension
 
 
         }
-        
-      
-    
+
+
+
         public PointCloud AlignPointClouds_OneVector(PointCloud pointCloudSource, PointCloud pointCloudTarget, int vectorNumberSource, int vectorNumberTarget)
         {
 
@@ -517,7 +518,7 @@ namespace OpenTKExtension
             return pcNew;
         }
 
-   
+
         /// <summary>
         /// assume - vectors are mass - centered!
         /// </summary>
@@ -529,13 +530,13 @@ namespace OpenTKExtension
         {
 
             PointCloud resultC= PointCloud.CloneAll(axesVectors);
-            
+
             if (i == -1)
                 return resultC;
 
-            
+
             resultC.Vectors[i] = resultC.Vectors[i].Negate();
-            
+
             return resultC;
 
         }
@@ -543,22 +544,22 @@ namespace OpenTKExtension
         {
 
             pcSourceCentered = CalculatePCA_Internal(pointCloudSource);
-           
-            
+
+
             Matrix3 R = new Matrix3();
             R = R.RotationChangeBasis(pointCloudSource.PCAAxes.ListVectors);
 
 
-            
+
             PointCloud pointCloudResult = PointCloud.CloneAll(pointCloudSource);
             PointCloud.SubtractVectorRef(pointCloudResult, pointCloudSource.CentroidVector);
             PointCloud.Rotate(pointCloudResult, R);
 
             pcResultCentered = CalculatePCA_Internal(pointCloudResult);
-            
-           
-            
-           
+
+
+
+
             return pointCloudResult;
 
 
@@ -579,15 +580,15 @@ namespace OpenTKExtension
                 if (EV[i] == 0)
                     v = new Vector3();
                 pointsSource.PCAAxes.AddVector(new Vector3(v));
-                
+
 
             }
-            
+
             for (int i = 0; i < 3; i++)
             {
 
                 pointsSource.PCAAxes.Vectors[i] += Centroid;
-                              
+
 
             }
             mypointCloudSourceCentered.PCAAxes = pointsSource.PCAAxes;
@@ -602,9 +603,9 @@ namespace OpenTKExtension
         /// <param name="mypointCloudSourceCentered"></param>
         private void AssignPCAxes(PointCloud pointsSource, PointCloud mypointCloudSourceCentered)
         {
-            
+
             //pointsSource.CentroidVector = Centroid;
-            
+
             pointsSource.PCAAxes = new PointCloud();
             List<Vector3> vectorList = mypointCloudSourceCentered.ListVectors;
             for (int i = 0; i < 3; i++)
@@ -669,16 +670,16 @@ namespace OpenTKExtension
 
 
         //}
-       
 
-   
-         
-   
+
+
+
+
         private static PointCloud CalculateResults(Matrix3 Ub, Matrix3 Ua, PointCloud pointCloudSource, Vector3 centroidB, Vector3 centroidA)
         {
             Matrix3 R;
-            Matrix3.Mult(ref Ub, ref Ua, out R);
-            
+            Matrix3.Mult(in Ub, in Ua, out R);
+
 
             PointCloud pointCloudResult = PointCloud.CloneAll(pointCloudSource);
             PointCloud.Rotate(pointCloudResult, R);
@@ -689,9 +690,9 @@ namespace OpenTKExtension
 
         }
 
-        
-       
-   
+
+
+
 
         ///// <summary>
         ///// compute normals for a all vectors of pointSource
@@ -710,7 +711,7 @@ namespace OpenTKExtension
         //        {
         //            Vector3 vNearest = pointsSource[v.KDTreeSearch[j].Key];
         //            sublist.Add(pointsSource[v.KDTreeSearch[j].Key].Vector);
-                  
+
         //        }
         //        if (centerOfMassMethod)
         //        {
@@ -722,7 +723,7 @@ namespace OpenTKExtension
         //            sublist.SubtractVector(v.Vector);
         //        }
         //        SVD_ForListVectorsMassCentered(sublist, true);
-          
+
         //        Vector3 normal = V.ExtractRow(2).ToVector();
         //        if (flipNormalWithOriginVector)
         //            AdjustOrientationWithVector(ref normal, v.Vector.ToVector());
@@ -746,8 +747,8 @@ namespace OpenTKExtension
         //    return normals;
 
         //}
-   
-      
+
+
         //private void AddAllPlaneVectors(Vector3 v, List<Vector3> normals)
         //{
         //    //to show ALL vectors (including the 2 vectors on the plane:
@@ -767,8 +768,8 @@ namespace OpenTKExtension
             //return;
 
             float d1 = Vector3.Dot(previousNormal, normal);
-            
-         
+
+
             if(d1 < 0 && d1 < -1e-3f)
             {
                 //normal = normalFlipped;
@@ -783,18 +784,18 @@ namespace OpenTKExtension
         }
         private void AdjustOrientationWithVector(ref Vector3 normal, Vector3 v)
         {
-           
+
             float d1 = Vector3.Dot(v, normal);
 
             if (d1 < 0 && d1 < -1e-3f)
             {
-               
+
                 normal = Vector3.Multiply(normal, -1);
             }
-          
+
 
         }
-      
+
         private Matrix3 ExtractMatrixColumnN(int N, Matrix3 W)
         {
             Matrix3 Vnew = new Matrix3();
@@ -803,7 +804,7 @@ namespace OpenTKExtension
 
             for (int i = 0; i < 3; i++)
             {
-               
+
                 if(i != N)
                 {
                     for (int j = 0; j < 3; j++)
@@ -837,10 +838,10 @@ namespace OpenTKExtension
 
 
         }
-       
+
         private List<Vector3> TransformPoints(List<Vector3> pointsToTransform, Matrix3 mat)
         {
-            
+
             listTransformed = new List<Vector3>();
             for (int i = 0; i < pointsToTransform.Count; i++)
             {
@@ -853,10 +854,10 @@ namespace OpenTKExtension
         }
         private void SVD_ForListVectorsMassCentered(List<Vector3> pointsSource, bool normalsCovariance)
         {
-           
+
             //calculate correlation matrix
             Matrix3 C = PointCloud.CovarianceMatrix(pointsSource, normalsCovariance);
-          
+
             SVD_Float.Eigenvalues_Helper(C);
             EV = SVD_Float.EV;
             VT = SVD_Float.VT;
@@ -864,9 +865,9 @@ namespace OpenTKExtension
 
             V = Matrix3.Transpose(VT);
 
-            
+
         }
-     
+
         private void SVD_OfPointCloud_Double(PointCloud pointsSource, bool normalsCovariance)
         {
             //calculate correlation matrix
@@ -876,8 +877,8 @@ namespace OpenTKExtension
 
             Matrix3d C = PointCloud.CovarianceMatrix3d(pointsSource, normalsCovariance);
             SVD.Eigenvalues_Helper(C);
-           
-         
+
+
             EV = new Vector3(Convert.ToSingle(SVD.EV.X), Convert.ToSingle(SVD.EV.Y), Convert.ToSingle(SVD.EV.Z));
             VT = SVD.VT.ToMatrix3();
             U = SVD.U.ToMatrix3();
@@ -926,7 +927,7 @@ namespace OpenTKExtension
         {
             Matrix3 VTNew = ExtractMatrixColumnN(eigenvectorUsed, VT);
             Matrix3 UNew = ExtractMatrixRowN(eigenvectorUsed, U);
-            
+
             Matrix3 R = Matrix3.Mult(UNew, VTNew);
             List<Vector3> resultList = TransformPoints(listTranslated, R);
 
@@ -936,8 +937,8 @@ namespace OpenTKExtension
             return resultList;
 
         }
-       
-  
+
+
         public List<Vector3> ProjectPointsOnPCAAxes()
         {
             List<Vector3> listProjected = new List<Vector3>();
@@ -945,7 +946,7 @@ namespace OpenTKExtension
             listProjected.AddRange(PointsResult1);
             listProjected.AddRange(PointsResult2);
 
-            
+
             return listProjected;
 
 
@@ -955,8 +956,8 @@ namespace OpenTKExtension
 
             PointCloud pc = PointCloud.FromListVector3(listVector3);
             List<Vector3> listResult = PointCloud.CloneAll(pc).ListVectors;
-           
-          
+
+
             Matrix3 R = Matrix3.Mult(U, VT);
             listResult = TransformPoints(listResult, R);
 
@@ -964,9 +965,9 @@ namespace OpenTKExtension
 
         }
 
-    
-        
-       
+
+
+
         public PointCloud CalculatePCA(PointCloud pointsSource, int eigenvectorUsed)
         {
             List<Vector3> Vector3Source = pointsSource.ListVectors;
@@ -983,7 +984,7 @@ namespace OpenTKExtension
             return PointCloud.FromListVector3(Vector3Source);
 
         }
-   
+
         private List<Vector3> CheckTransformation(List<Vector3> pointsSource)
         {
             List<Vector3> listResult = TransformPointsAfterPCA(pointsSource);
@@ -991,7 +992,7 @@ namespace OpenTKExtension
 
             return listResult; // should be pointsSource
         }
-      
+
 
         public List<Vector3> PointsResult0
         {
@@ -1029,6 +1030,6 @@ namespace OpenTKExtension
 
         }
 
-        
+
     }
 }

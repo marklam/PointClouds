@@ -4,6 +4,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using OpenTKExtension;
+using OpenTK.Mathematics;
 
 
 
@@ -23,7 +24,7 @@ namespace OpenTKExtension
             for (int i = 0; i < 360; i++)
             {
                 float t = Convert.ToSingle(MathBase.DegreesToRadians_Float * i);
-                Vector3 v = new OpenTK.Vector3(Convert.ToSingle(a * Math.Sin(t)), Convert.ToSingle(b * Math.Cos(t)), Convert.ToSingle(z));
+                Vector3 v = new OpenTK.Mathematics.Vector3(Convert.ToSingle(a * Math.Sin(t)), Convert.ToSingle(b * Math.Cos(t)), Convert.ToSingle(z));
                 listPoints.Add(v);
             }
 
@@ -31,8 +32,8 @@ namespace OpenTKExtension
             FillIndexBuffer();
 
         }
-      
-     
+
+
         public override void InitializeGL()
         {
             this.primitiveType = PrimitiveType.Lines;
@@ -52,8 +53,8 @@ namespace OpenTKExtension
             {
 
                 this.initBuffers();
-             
-            
+
+
                 FillPointCloud();
                 FillIndexBuffer();
 
@@ -62,14 +63,14 @@ namespace OpenTKExtension
 
         }
 
-        
-      
+
+
         public override void Dispose()
         {
 
             base.Dispose();
         }
-      
+
         public override void FillPointCloud()
         {
 
@@ -85,16 +86,16 @@ namespace OpenTKExtension
 
             }
 
-            
+
             this.PointCloud.Colors = new Vector3[this.PointCloud.Vectors.Length];
             for (int i = 0; i < this.PointCloud.Vectors.Length; i++)
             {
-               
+
                 this.PointCloud.Colors[i] = new Vector3(0f,1f,0f);
-            
+
             }
-            
-       
+
+
 
 
 
@@ -112,7 +113,7 @@ namespace OpenTKExtension
 
 
         }
-     
+
         //public List<Vector3> CalculateBoundingBox(List<Vector3> vectors)
         //{
 
@@ -160,9 +161,9 @@ namespace OpenTKExtension
 
         //}
 
-      
-        
-     
-   
+
+
+
+
     }
 }

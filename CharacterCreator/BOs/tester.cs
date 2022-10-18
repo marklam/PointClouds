@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Runtime.Serialization;
 using OpenTK;
-
+using OpenTK.Mathematics;
 
 namespace CharacterCreator
 {

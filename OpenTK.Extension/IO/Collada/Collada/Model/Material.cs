@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.Collada
 {
-    public class Material 
+    public class Material
 	{
 		private const int BITMAP_HEADER_LENGTH = 54;
 
@@ -29,7 +30,7 @@ namespace OpenTKExtension.Collada
 			this.fileName = fileName;
 		}
 
-		private int parseHeader(byte[] header) 
+		private int parseHeader(byte[] header)
 		{
 			var fileType = Encoding.ASCII.GetString(header.Take(2).ToArray());
 			if (fileType != "BM")
@@ -44,7 +45,7 @@ namespace OpenTKExtension.Collada
 
 			return BitConverter.ToInt32(header, 10); // Start of image data
 		}
-			
+
 		public unsafe void LoadTexture(string texturePath)
 		{
 			if (fileName == null)
@@ -53,7 +54,7 @@ namespace OpenTKExtension.Collada
             var imageStream = SourceLoader.GetStream(texturePath);
 			if (imageStream == null)
                 throw new ApplicationException(@"Texture resource '{texturePath}.{fileName}' not found!");
-			
+
 			// Read bitmap header
 			var header = new byte[BITMAP_HEADER_LENGTH];
 			imageStream.Read(header, 0, BITMAP_HEADER_LENGTH);
@@ -71,7 +72,7 @@ namespace OpenTKExtension.Collada
 				textureId = GL.GenTexture();
 				GL.BindTexture(TextureTarget.Texture2D, textureId);
 				GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
-				
+
 				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, textureWidth, textureHeight, 0, PixelFormat.Bgr, PixelType.UnsignedByte, ptr);
 
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);

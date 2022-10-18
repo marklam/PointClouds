@@ -1,83 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
-  <!--Project was exported from assembly: A:\Archiv\3D\OpenTK\Games_Samples\Lab3D\Lab3D.exe-->
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DF1F2330-134C-4EC6-A97C-3011D3072F0A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>OpenTK.Extension</AssemblyName>
-    <RootNamespace>OpenTKExtension</RootNamespace>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.2.1</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>10.0</LangVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <EnableDefaultItems>false</EnableDefaultItems>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binExtern\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binExtern\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binExtern\OpenTK.GLControl.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="Extensions\BitmapExtension.cs" />
@@ -502,21 +436,15 @@
     <Compile Include="KDTree\JeremyC\KDTreeJeremyC.cs" />
     <Compile Include="KDTree\JeremyC\KDTreeNodeJeremyC.cs" />
     <Compile Include="_baseClasses\Model\RenderMode.cs" />
-    <Compile Include="_FormsOther\AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="_FormsOther\AboutForm.cs" />
     <Compile Include="_FormsOther\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="_FormsOther\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="_FormsOther\SettingsForm.cs" />
     <Compile Include="_FormsOther\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="_Forms\MultipleOGLControls.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="_Forms\MultipleOGLControls.cs" />
     <Compile Include="_Forms\MultipleOGLControls.Designer.cs">
       <DependentUpon>MultipleOGLControls.cs</DependentUpon>
     </Compile>
@@ -563,31 +491,19 @@
     <Compile Include="_baseClasses\RenderableObjects\Ellipse.cs" />
     <Compile Include="_baseClasses\RenderableObjects\Face.cs" />
     <Compile Include="_baseClasses\RenderableObjects\CameraFOV.cs" />
-    <Compile Include="_Controls\OGLControl.cs">
-      <SubType>usercontrol</SubType>
-    </Compile>
+    <Compile Include="_Controls\OGLControl.cs" />
     <Compile Include="_baseClasses\OpenGLContext.cs" />
-    <Compile Include="_Forms\TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="_Forms\TestForm.cs" />
     <Compile Include="_Forms\TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Triangulation\TetrahedralMarcher\MarchingCubes.cs" />
     <Compile Include="Triangulation\TetrahedralMarcher\TablesMarchingCube.cs" />
     <Compile Include="Triangulation\TetrahedralMarcher\TetrahedralMarcher.cs" />
-    <Compile Include="_Controls\Specials\UC_BusinessLogic.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="_Controls\Specials\UC_Display.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="_Controls\Specials\UC_Model.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="_Controls\Specials\UC_PointCloud.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="_Controls\Specials\UC_BusinessLogic.cs" />
+    <Compile Include="_Controls\Specials\UC_Display.cs" />
+    <Compile Include="_Controls\Specials\UC_Model.cs" />
+    <Compile Include="_Controls\Specials\UC_PointCloud.cs" />
     <Compile Include="_baseClasses\Camera\AbstractCamera.cs" />
     <Compile Include="_baseClasses\Camera\CPlane.cs" />
     <Compile Include="_baseClasses\Camera\FreeCamera.cs" />
@@ -696,7 +612,6 @@
     <Compile Include="Extensions\TextRenderer.cs" />
     <Compile Include="OpenGL\OpenGLTextWriter.cs" />
     <Compile Include="_baseClasses\UtilsPointCloudIO.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -711,9 +626,7 @@
     <Compile Include="Geometry\Plane.cs" />
     <Compile Include="Triangulation\Cell2D.cs" />
     <Compile Include="Triangulation\Vertex2D.cs" />
-    <Compile Include="Triangulation\VoronoiFortune\FortuneVoronoiUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Triangulation\VoronoiFortune\FortuneVoronoiUI.cs" />
     <Compile Include="Triangulation\VoronoiFortune\FortuneVoronoiUI.Designer.cs">
       <DependentUpon>FortuneVoronoiUI.cs</DependentUpon>
     </Compile>
@@ -730,9 +643,7 @@
     <Compile Include="Utils\ScreenSaver.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Utils\XMLFuncs.cs" />
-    <Compile Include="_Controls\_OpenGLUC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="_Controls\_OpenGLUC.cs" />
     <Compile Include="_Controls\_OpenGLUC.Designer.cs">
       <DependentUpon>_OpenGLUC.cs</DependentUpon>
     </Compile>
@@ -763,29 +674,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="KDTree\Bitbucket\" />
-    <Folder Include="Triangulation\DelaunayVoronoiJunk\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

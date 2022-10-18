@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using Newtonsoft.Json;
 using System.IO;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {

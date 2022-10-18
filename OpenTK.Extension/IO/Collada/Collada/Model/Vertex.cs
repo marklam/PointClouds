@@ -1,6 +1,7 @@
 
 
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.Collada
 {

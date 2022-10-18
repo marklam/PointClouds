@@ -1,20 +1,20 @@
 ﻿/*************************************************************************
- *     This file & class is part of the MIConvexHull Library Project. 
+ *     This file & class is part of the MIConvexHull Library Project.
  *     Copyright 2010 Matthew Ira Campbell, PhD.
  *
  *     MIConvexHull is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation, either version 3 of the License, or
  *     (at your option) any later version.
- *  
+ *
  *     MIConvexHull is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- *  
+ *
  *     You should have received a copy of the GNU General Public License
  *     along with MIConvexHull.  If not, see <http://www.gnu.org/licenses/>.
- *     
+ *
  *     Please find further details and contact information on GraphSynth
  *     at http://miconvexhull.codeplex.com
  *************************************************************************/
@@ -33,10 +33,10 @@ namespace OpenTKExtension
     public class Cell2D : TriangulationCell<Vertex2D, Cell2D>
     {
         static Random rnd = new Random();
-        OpenTK.Vector2d circumCenter;
-        OpenTK.Vector2d centroid;
+        OpenTK.Mathematics.Vector2d circumCenter;
+        OpenTK.Mathematics.Vector2d centroid;
 
-        
+
         float Det(float[,] m)
         {
             return m[0, 0] * ((m[1, 1] * m[2, 2]) - (m[2, 1] * m[1, 2])) - m[0, 1] * (m[1, 0] * m[2, 2] - m[2, 0] * m[1, 2]) + m[0, 2] * (m[1, 0] * m[2, 1] - m[2, 0] * m[1, 1]);
@@ -53,7 +53,7 @@ namespace OpenTKExtension
             return norm;
         }
 
-        OpenTK.Vector2d GetCircumcenter()
+        OpenTK.Mathematics.Vector2d GetCircumcenter()
         {
             // From MathWorld: http://mathworld.wolfram.com/Circumcircle.html
 
@@ -93,36 +93,36 @@ namespace OpenTKExtension
 
             var s = -1/ (2* a);
             var r = System.Math.Abs(s) * System.Math.Sqrt(dx * dx + dy * dy - 4 * a * c);
-            return new OpenTK.Vector2d(s * dx, s * dy);
+            return new OpenTK.Mathematics.Vector2d(s * dx, s * dy);
         }
 
-        OpenTK.Vector2d GetCentroid()
+        OpenTK.Mathematics.Vector2d GetCentroid()
         {
-            return new OpenTK.Vector2d(Vertices.Select(v => v[0]).Average(), Vertices.Select(v => v[1]).Average());
+            return new OpenTK.Mathematics.Vector2d(Vertices.Select(v => v[0]).Average(), Vertices.Select(v => v[1]).Average());
         }
 
 
-        public OpenTK.Vector2d Circumcenter
+        public OpenTK.Mathematics.Vector2d Circumcenter
         {
             get
             {
-                if (circumCenter == default(OpenTK.Vector2d))
+                if (circumCenter == default(OpenTK.Mathematics.Vector2d))
                     circumCenter = GetCircumcenter();
                 return circumCenter;
             }
         }
-      
-        public OpenTK.Vector2d Centroid
+
+        public OpenTK.Mathematics.Vector2d Centroid
         {
             get
             {
-                if (centroid == default(OpenTK.Vector2d))
+                if (centroid == default(OpenTK.Mathematics.Vector2d))
                     centroid = GetCentroid();
-                 
+
                 return centroid;
             }
         }
 
-       
+
     }
 }

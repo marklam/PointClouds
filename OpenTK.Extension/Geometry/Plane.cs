@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
@@ -30,13 +31,13 @@ namespace OpenTKExtension
             return new Plane(n, d);
         }
 
-   
-        public void flip() 
+
+        public void flip()
         {
             this.normal = this.normal.Negate();
             this.w = -this.w;
         }
-     
-   
+
+
     }
 }

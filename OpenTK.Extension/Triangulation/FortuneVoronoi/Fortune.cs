@@ -5,7 +5,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTKExtension;
 using System.Collections.Generic;
-
+using OpenTK.Mathematics;
 
 namespace FortuneVoronoi
 {

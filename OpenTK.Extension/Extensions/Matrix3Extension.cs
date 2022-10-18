@@ -4,14 +4,14 @@
 //     Edgar Maass: (email: maass@logisel.de)
 //               Code adaption, changed to user control
 //
-//Software used: 
+//Software used:
 //    OpenGL : http://www.opengl.org
 //    OpenTK : http://www.opentk.com
 //
-// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective, 
-// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person 
+// DISCLAIMER: Users rely upon this software at their own risk, and assume the responsibility for the results. Should this software or program prove defective,
+// users assume the cost of all losses, including, but not limited to, any necessary servicing, repair or correction. In no event shall the developers or any person
 // be liable for any loss, expense or damage, of any type or nature arising out of the use of, or inability to use this software or program, including, but not
-// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition. 
+// limited to, claims, suits or causes of action involving alleged infringement of copyrights, patents, trademarks, trade secrets, or unfair competition.
 //
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,12 @@ using OpenTK;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Data;
-
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension
 {
-  
-    //Extensios attached to the object which folloes the "this" 
+
+    //Extensios attached to the object which folloes the "this"
     public static class Matrix3Extension
     {
 
@@ -51,9 +51,9 @@ namespace OpenTKExtension
         /// <param name="result">A new instance that is the result of the addition.</param>
         public static void Add(this Matrix3 left, Matrix3 right, out Matrix3 result)
         {
-            Vector3.Add(ref left.Row0, ref right.Row0, out result.Row0);
-            Vector3.Add(ref left.Row1, ref right.Row1, out result.Row1);
-            Vector3.Add(ref left.Row2, ref right.Row2, out result.Row2);
+            Vector3.Add(in left.Row0, in right.Row0, out result.Row0);
+            Vector3.Add(in left.Row1, in right.Row1, out result.Row1);
+            Vector3.Add(in left.Row2, in right.Row2, out result.Row2);
         }
 
         public static Matrix3 MultiplyScalar(this Matrix3 A, float val)
@@ -158,7 +158,7 @@ namespace OpenTKExtension
         }
 
         /// <summary>
-        /// Rotates around x,y and z axis by the given amount in Degrees 
+        /// Rotates around x,y and z axis by the given amount in Degrees
         /// </summary>
         /// <param name="mat"></param>
         /// <param name="x"></param>
@@ -176,7 +176,7 @@ namespace OpenTKExtension
             return Rx;
         }
         /// <summary>
-        /// Rotates around x,y and z axis by the given amount in radiants 
+        /// Rotates around x,y and z axis by the given amount in radiants
         /// </summary>
         /// <param name="mat"></param>
         /// <param name="x"></param>
@@ -276,7 +276,7 @@ namespace OpenTKExtension
         //}
 
         /// <summary>
-        /// Parses strig to 
+        /// Parses strig to
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -450,7 +450,7 @@ namespace OpenTKExtension
 
 
         /// <summary>
-        /// Parses multiline text input  from a textreader into a Matrix where each line 
+        /// Parses multiline text input  from a textreader into a Matrix where each line
         /// corresponsd to a row and the items on the line are space deliminted
         /// </summary>
         /// <param name="reader">The TextReader</param>
@@ -826,7 +826,7 @@ namespace OpenTKExtension
             //mat.Transpose();
             return mat;
         }
-     
+
         /// <summary>
         /// matrix for u -> v rotation (source -> target)
         /// After: http://cs.brown.edu/~jfh/papers/Moller-EBA-1999/paper.pdf
@@ -903,10 +903,10 @@ namespace OpenTKExtension
             //mat.Transpose();
             return mat;
         }
-     
+
         public static Matrix3 Rotation_ToOriginAxes(this Matrix3 mat, PointCloud  cloudOrigin)
         {
-            
+
             List<Vector3> list = new List<Vector3>();
             list.Add(new Vector3(1, 0, 0));
             list.Add(new Vector3(0, 1, 0));
@@ -1004,7 +1004,7 @@ namespace OpenTKExtension
         //            mat[i, j] = Vector3.Dot(cloudOrigin.Vectors[i], target.Vectors[j]);
         //        }
         //    }
-            
+
         //    return mat;
         //}
 
@@ -1155,7 +1155,7 @@ namespace OpenTKExtension
             return m;
         }
 
-   
+
         public static Vector3 Multiply(this Matrix3 A, Vector3 v)
         {
             Vector3 u = new Vector3();
@@ -1206,7 +1206,7 @@ namespace OpenTKExtension
         cos, 0, sin,
         0, 1, 0,
         -sin, 0, cos);
-       
+
         }
 
         public static Matrix3 GetRotationMatrixZ(float angle)

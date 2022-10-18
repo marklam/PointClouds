@@ -9,6 +9,8 @@ using OpenTK;
 
 
 using System.Linq;
+using OpenTK.Mathematics;
+
 namespace UnitTestsOpenTK.Triangulation
 {
     [TestFixture]

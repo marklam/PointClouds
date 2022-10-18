@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Kinect;
 //using System.Windows.Media.Media3D;
 using OpenTK;
+using OpenTK.Mathematics;
 
 //from https://bitbucket.org/nguyenivan/kinect2bvh.v2/src/d19ccd4e7631?at=master
 
@@ -38,7 +39,7 @@ namespace PointCloudUtils
             return value;
         }
    
-        public static Vector3 QuaternionToEuler(OpenTK.Vector4 q)
+        public static Vector3 QuaternionToEuler(OpenTK.Mathematics.Vector4 q)
         {
             Vector3 v = Vector3.Zero;
             v.X =(float) Math.Atan2(2 * q.Y * q.W - 2 * q.X * q.Z,
@@ -132,7 +133,7 @@ namespace PointCloudUtils
 
     
 
-        public static float[] quat2Deg(OpenTK.Vector4 vec)
+        public static float[] quat2Deg(OpenTK.Mathematics.Vector4 vec)
         {
             float[] value = new float[3];
             value[0] = (float)Math.Atan2(2 * (vec.W * vec.X + vec.Y * vec.Z), 1 - 2 * (Math.Pow(vec.X, 2) + Math.Pow(vec.Y, 2)));

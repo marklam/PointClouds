@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace OpenTKExtension.FastGLControl
 {
@@ -42,7 +43,7 @@ namespace OpenTKExtension.FastGLControl
             CPlane temp = new CPlane();
             Vector3 e1 = v2 - v1;
             Vector3 e2 = v3 - v1;
-            Vector3 v = 
+            Vector3 v =
             temp.N = Vector3.Normalize(Vector3.Cross(e1, e2));
             temp.d = - Vector3.Dot(temp.N , v1);
             return temp;

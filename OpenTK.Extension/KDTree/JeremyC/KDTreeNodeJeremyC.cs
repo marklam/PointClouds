@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK;
+using OpenTK.Mathematics;
 
 
 namespace OpenTKExtension
@@ -110,8 +111,8 @@ namespace OpenTKExtension
             {
 				minV = maxV = vertex.Vector;
 			}
-			minV = Vector3.Min(minV, vertex.Vector);
-            maxV = Vector3.Max(maxV, vertex.Vector);
+			minV = Vector3.MagnitudeMin(minV, vertex.Vector);
+            maxV = Vector3.MagnitudeMax(maxV, vertex.Vector);
 			Indices.Add(index);
 			IsBuilt = false;
 		}
