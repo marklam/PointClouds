@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 
 using System;
+using System.IO;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
+using System.Runtime.CompilerServices;
 
 namespace OpenTKExtension
 {
@@ -27,8 +29,13 @@ namespace OpenTKExtension
         Matrix4 v;
         Matrix4 mvp;
 
+        private static string GetBinPathPath([CallerFilePath] string path = null)
+        {
+            var solutionRoot = new DirectoryInfo(path).Parent.Parent.Parent.Parent;
+            return solutionRoot.FullName +  "\\Bin\\";
+        }
 
-        protected string path = AppDomain.CurrentDomain.BaseDirectory;
+        protected string path = GetBinPathPath();
         public Vector3 color = new Vector3(1, 1, 1);
 
         protected int vaoID;
