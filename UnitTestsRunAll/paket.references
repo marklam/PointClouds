@@ -2,3 +2,4 @@ NUnit
 MSTest.TestFramework
 MSTest.TestAdapter
 NUnit3TestAdapter
+Microsoft.NET.Test.SDK

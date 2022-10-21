@@ -7,10 +7,11 @@ using System.Drawing;
 using OpenTKExtension;
 using OpenTK;
 using OpenTK.Mathematics;
+using System.Runtime.CompilerServices;
 
 namespace UnitTestsOpenTK
 {
-    
+
     public class TestBase
     {
         protected static bool UIMode = true;
@@ -28,14 +29,14 @@ namespace UnitTestsOpenTK
         protected PointCloud pointCloudResult = null;
         protected float cubeSizeX = 2f;
 
-        
-        
-        
+
+
+
         protected float threshold = Convert.ToSingle(1E-4);
 
         DateTime CurrentTime;
 
-                 
+
         protected bool checkMultipleNormals = false;
 
         [SetUp]
@@ -52,16 +53,23 @@ namespace UnitTestsOpenTK
 
 
         }
+
+        private static string GetCloudsPath([CallerFilePath] string path = null)
+        {
+            var solutionRoot = new DirectoryInfo(path).Parent.Parent.Parent;
+            return solutionRoot.FullName + "\\TestData\\";
+        }
+
         public TestBase()
         {
             pathBin = AppDomain.CurrentDomain.BaseDirectory;
             pathModels = pathBin + GLSettings.PathPointClouds;
-            pathUnitTests = pathBin + GLSettings.PathUnitTests;
+            pathUnitTests = GetCloudsPath();
 
 
 
         }
-      
+
         protected void Show3PointCloudsInWindow(bool changeColor)
         {
             TestForm fOTK = new TestForm();
@@ -77,8 +85,8 @@ namespace UnitTestsOpenTK
             pointCloudSource.Name = "Source";
             fOTK.OpenGL_UControl.OGLControl.GLrender.AddPointCloud(pointCloudSource);
 
-           
-            
+
+
 
 
             if (pointCloudResult != null && this.pointCloudResult.Count > 0)
@@ -94,9 +102,9 @@ namespace UnitTestsOpenTK
 
             fOTK.ShowDialog();
 
-          
+
         }
-      
+
         protected void ShowPointCloud(PointCloud pc)
         {
             TestForm fOTK = new TestForm();
@@ -113,12 +121,12 @@ namespace UnitTestsOpenTK
 
             pointCloudSource = PointCloud.FromListVector3(listResult);
 
-         
+
             ShowPointCloud(pointCloudSource);
         }
-     
-   
-     
+
+
+
 
 
         //private void UpateModel_Faces(PointCloud myModel, List<cFace> listFaces)
@@ -148,7 +156,7 @@ namespace UnitTestsOpenTK
         //    //myModel.Helper_AdaptNormalsForEachVertex();
         //    myModel.PointCloud.CalculateCentroidBoundingBox();
         //}
-      
+
 
 
         protected bool CheckResult(float d1, float d2, float threshold)
@@ -172,9 +180,9 @@ namespace UnitTestsOpenTK
         {
 
             PointCloud.SetColorOfListTo(pointCloudSource, Color.Red);
-          
+
             ShowPointCloud(pointCloudSource);
-            
+
 
         }
         protected void ShowCubeLinesAndNormals(float cubeSize, List<Vector3> normals)
@@ -184,7 +192,7 @@ namespace UnitTestsOpenTK
             PointCloud myPointCloud = new PointCloud ();
 
 
-          
+
             ShowPointCloud(pointCloudSource);
 
         }
@@ -197,14 +205,14 @@ namespace UnitTestsOpenTK
         //    myModel.PointCloud = pointCloudSource;
         //    myModel.Normals = normals;
 
-          
+
 
         //    ShowModel_Normals(myModel);
 
         //}
-     
-     
-      
+
+
+
         protected void Show4PointCloudsInWindow(bool changeColor)
         {
             TestForm fOTK = new TestForm();
@@ -222,40 +230,40 @@ namespace UnitTestsOpenTK
             TestForm fOTK = new TestForm();
 
             fOTK.Show3PointClouds(pointCloudSource, pointCloudTarget, pointCloudResult, changeColor);
-                       
+
             fOTK.ShowDialog();
 
 
         }
-       
+
         protected void CreateCube()
         {
 
             CreateCube(2);
-            
+
 
         }
         protected void CreateCube(int numberOfPoints)
         {
-            
-            
-          
-            
+
+
+
+
             List<Vector3> listVectors = ExamplePointClouds.Cuboid_Corners_CenteredAt0(1, 2, 1);
-           
+
             this.pointCloudTarget = PointCloud.FromListVector3(listVectors);
 
 
             this.pointCloudSource = PointCloud.CloneAll(pointCloudTarget);
 
-           
+
 
         }
         protected void CreateCuboid(float sizeX, float sizeY, float sizeZ)
         {
             List<Vector3> listVectors = ExamplePointClouds.Cuboid_Corners_CenteredAt0(sizeX, sizeY, sizeZ);
             this.pointCloudTarget = PointCloud.FromListVector3(listVectors);
-            
+
             PointCloud.ResetToOriginAxis(pointCloudTarget);
             PointCloud.SetIndicesForCubeCorners(this.pointCloudTarget);
 
@@ -264,38 +272,38 @@ namespace UnitTestsOpenTK
 
 
         }
-       
+
         protected void CreateCuboid(int numberOfPoints)
         {
-           
+
             pointCloudTarget = ExamplePointClouds.Cuboid(4, 2, 1, numberOfPoints, numberOfPoints, numberOfPoints);
             pointCloudSource = PointCloud.CloneAll(pointCloudTarget);
-            
+
             pointCloudSource = PointCloud.ResizeAndSort_Distance(pointCloudSource);
             pointCloudTarget = PointCloud.ResizeAndSort_Distance(pointCloudTarget);
 
         }
         protected void CreateTileEmpty(int numberOfPoints)
         {
-           
+
             pointCloudTarget = ExamplePointClouds.CuboidEmpty(4, 2, 1, numberOfPoints, numberOfPoints, numberOfPoints);
-           
+
             this.pointCloudSource = PointCloud.CloneAll(pointCloudTarget);
 
         }
         protected void CreateRectangle()
         {
-           
-           
+
+
             pointCloudTarget = ExamplePointClouds.Rectangle(4, 2, 2, 2);
-          
+
             this.pointCloudSource = PointCloud.CloneAll(pointCloudTarget);
 
         }
         protected void CreateRectangleTranslated()
         {
-           
-            
+
+
 
             pointCloudTarget = ExamplePointClouds.Rectangle(4, 2, 2, 2);
             PointCloud.Translate(pointCloudTarget, 3, 3, -1);
@@ -313,8 +321,8 @@ namespace UnitTestsOpenTK
         protected void ShowResultsInWindow_CubeNew(bool changeColor, bool showCornerLines)
         {
 
-          
-            //color code: 
+
+            //color code:
             //Target is green
             //source : white
             //result : red
@@ -323,7 +331,7 @@ namespace UnitTestsOpenTK
 
             //if (pointCloudSource != null)
             //{
-                
+
             //    if(showCornerLines)
             //        PointCloud.SetIndicesForCubeCorners(pointCloudSource);
 
@@ -355,8 +363,8 @@ namespace UnitTestsOpenTK
         protected void ShowResultsInWindow_Cube(bool changeColor)
         {
 
-          
-            //color code: 
+
+            //color code:
             //Target is green
             //source : white
             //result : red
@@ -384,7 +392,7 @@ namespace UnitTestsOpenTK
 
 
         }
-     
+
         protected void ShowResultsInWindow_Cube_ProjectedPoints(bool changeColor)
         {
 
@@ -443,8 +451,8 @@ namespace UnitTestsOpenTK
         protected void Performance_Start()
         {
             CurrentTime = DateTime.Now;
-           
-        
+
+
         }
         protected float Performance_Stop(string nameOfTestcase)
         {

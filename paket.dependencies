@@ -4,7 +4,8 @@ storage: none
 framework: auto-detect
 nuget AForge.Controls
 nuget AForge.Video.DirectShow
-nuget Microsoft.Kinect
+nuget Microsoft.Kinect copy_local:false
+nuget Microsoft.NET.Test.SDK
 nuget MSTest.TestAdapter
 nuget MSTest.TestFramework
 nuget Newtonsoft.Json

@@ -29,13 +29,13 @@ namespace OpenTKExtension
         Matrix4 v;
         Matrix4 mvp;
 
-        private static string GetBinPathPath([CallerFilePath] string path = null)
+        private static string GetBinPath([CallerFilePath] string path = null)
         {
             var solutionRoot = new DirectoryInfo(path).Parent.Parent.Parent.Parent;
             return solutionRoot.FullName +  "\\Bin\\";
         }
 
-        protected string path = GetBinPathPath();
+        protected string path = GetBinPath();
         public Vector3 color = new Vector3(1, 1, 1);
 
         protected int vaoID;

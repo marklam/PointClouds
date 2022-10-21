@@ -2935,7 +2935,7 @@ namespace ICPLib
             }
 
             PointCloud pc = PointCloud.FromListVector3(listNew);
-            pc.Colors = a.Colors.Clone() as Vector3[];
+            pc.Colors = a.Colors?.Clone() as Vector3[];
             
 
             return pc;
